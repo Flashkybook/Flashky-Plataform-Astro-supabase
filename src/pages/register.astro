@@ -1,0 +1,19 @@
+---
+import Layout from "@layouts/index.astro";
+---
+
+<Layout title="Registrarse">
+  <h1>Registrarse</h1>
+  <p>¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
+  <form action="/api/auth/register" method="post">
+    <label for="email">Correo electrónico</label>
+    <input type="email" name="email" id="email" />
+    <label for="password">Contraseña</label>
+    <input type="password" name="password" id="password" />
+    <button type="submit">Iniciar sesión</button>
+  </form>
+  
+  <form action="/api/auth/OAuth/provider" method="post">
+    <button value="github" name="provider"  type="submit">Inicia sesión con Github</button>
+  </form>
+</Layout>
