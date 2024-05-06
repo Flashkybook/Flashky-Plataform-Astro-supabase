@@ -1,11 +1,32 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "strictNullChecks": true,
+    "verbatimModuleSyntax": true,
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@lib/*": ["src/lib/*"],
-      "@layouts/*": ["src/components/layouts/*"]
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@env": [
+        "src/env.d.ts"
+      ],
+      "@layouts/*": [
+        "src/components/layouts/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "@/*": [
+        "src/*"
+      ]
     }
   }
 }

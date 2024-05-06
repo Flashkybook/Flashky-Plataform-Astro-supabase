@@ -1,0 +1,36 @@
+---
+import { supabase } from "@lib/supabase";
+const { user_id } = Astro.props;
+
+const { redirect } = Astro;
+
+if (Astro.request.method === "POST") {
+    try {
+        const data = await Astro.request.formData();
+        const name_userbook = data.get("name_userbook");
+        console.log(name_userbook)
+        if (name_userbook === "") {
+            redirect("/dashboard");
+        }
+
+        const { data: res, error } = await supabase
+            .from("user-book")
+            .insert({
+                user_id: user_id,
+                name: name_userbook,
+            })
+            .select();
+
+        // Astro.redirect("/dashboard")
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
+    }
+}
+---
+
+<form method="POST">
+    <input type="text" name="name_userbook" value="" />
+    <input type="submit" value="crear nuevo libro" />
+</form>

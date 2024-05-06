@@ -1,0 +1,45 @@
+---
+import { supabase } from "@lib/supabase";
+
+import type { SPB_UserData, SPB_UserBook } from "@/env";
+import AddUserbook from "./AddUserbook.astro";
+
+// types
+import type {
+    PostgrestSingleResponse,
+    PostgrestError,
+} from "@supabase/supabase-js";
+type UserBook = PostgrestSingleResponse<SPB_UserBook[]>;
+interface Props {
+    user_data: SPB_UserData;
+}
+
+// props
+const { user_data } = Astro.props;
+
+// supabase userbook
+const { data: userbook, error }: UserBook = await supabase
+    .from("user-book")
+    .select("*")
+    .eq("user_id", user_data.id);
+
+console.log(userbook);
+---
+
+<h2>lista de libros</h2>
+
+<div>
+    {
+        userbook?.length == 0 ? (
+            <h3>"no hay libros disponibles crea uno nuevo"</h3>
+        ) : (
+            userbook?.map((v) => (
+                <a href={"/dashboard/books/" + v.id + "-"+ v.name }>
+                    <div>{v.name}</div>
+                </a>
+            ))
+        )
+    }
+</div>
+
+<AddUserbook user_id={user_data.id} />
