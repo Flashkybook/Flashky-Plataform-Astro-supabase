@@ -1,27 +1,13 @@
 ---
 import Layout from "@layouts/index.astro";
-import type { SPB_UserData } from "@/env";
 
-const { cookies, redirect } = Astro;
-
-const user = cookies.get("user");
-
-if (user === undefined) {
-  return redirect("/login");
-}
-
-const user_data: SPB_UserData = JSON.parse(user.value);
 
 
 
 ---
 
 <Layout title="panel de control">
-  <p>Estamos felices de verte aquí</p>
 
-  <form action="/api/auth/v0/sign-out">
-    <button type="submit">Cerrar sesión</button>
-  </form>
 
   <br />
   <br />

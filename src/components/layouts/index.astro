@@ -1,4 +1,27 @@
 ---
+import '@material/web/button/filled-button.js';
+import '@material/web/button/outlined-button.js';
+import '@material/web/checkbox/checkbox.js';
+
+
+import Navbar from "./Navbar.astro"
+
+const { title } = Astro.props;
+
+
+import type { SPB_UserData } from "@/env";
+
+const { cookies, redirect, url } = Astro;
+
+const user = cookies.get("user");
+
+if (user === undefined && url.pathname == "/dashboard/*"  ) {
+		return redirect("/");
+}
+
+const user_data: SPB_UserData = JSON.parse(user.value as string);
+
+
 
 
 ---
@@ -10,13 +33,12 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Flashky</title>
 	</head>
 
 	<body>
-
+		{user_data && <Navbar user_data={user_data} />}
 		<main>
-            
             <slot />
         </main>
 	</body>
