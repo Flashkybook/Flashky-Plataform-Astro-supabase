@@ -1,0 +1,24 @@
+---
+
+import type { SPB_UserData } from "@/env";
+
+const { cookies, redirect, url } = Astro;
+
+
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+
+if (accessToken && refreshToken) {
+  return redirect("/dashboard");
+}
+
+const user = cookies.get("user");
+
+if (user === undefined && url.pathname == "/dashboard/*") {
+
+}
+if (user){
+    const user_data: SPB_UserData = JSON.parse(user.value as string);
+    return <slot/>
+}
+---
