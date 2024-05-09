@@ -1,4 +1,34 @@
 
+- [x] autentificación
+  - [ ] Rutas protegidas y obtención de session de usuario 
+  - [ ] Verificacion de usuario  ⏱2
+  - [ ] Validación de usuario autentificado para el crud ⏱3
+
+
+- [ ] Crud supabase
+  - [ ] book 📁
+    - [x] add
+    - [ ] delete
+    - [ ] set
+    - [ ] delete cards in cascade
+
+  - [ ] crud card 
+    - [x] add card and expressions
+      - [ ] suggestion de expression similar Expression o equal ⏱3
+    - [ ] delete card 
+    - [ ] set card
+
+
+- [ ] validate expressions  ⏱3
+  - [ ] expression users => 0
+
+
+- [ ] Interface de estudio
+  - [ ] Modos de estudio
+
+
+
+
 # Ui
 - https://material-foundation.github.io/material-theme-builder/
 https://aribudin.github.io/tailmater/#
@@ -26,19 +56,6 @@ theme
 
 # Posibilidad
 
-- [x] autentificación
-- [ ] Crud supabase
-  - [x] Agregar user book 📁
-  - [ ] crud card expressions
-    - [ ] delete card 
-      - [ ] epression users => 0
-      - [ ] validate expressions
-    - [ ] add card
-      - [ ] suggestion de expression similar Expression o equal
-      - [ ] 
-      - [ ] 
-- [ ] Interface de estudio
-- [ ] Modos de estudio
 
 
 # [ ] Relación base de datos

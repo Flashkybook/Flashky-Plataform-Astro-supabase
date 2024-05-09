@@ -2,7 +2,6 @@
 import Layout from "@/layouts/index.astro";
 ---
 
-<Layout title="Registrarse">
 
   <form action="/api/v0/auth/login" method="post">
     <label for="email">Correo electrónico</label>
@@ -28,4 +27,3 @@ import Layout from "@/layouts/index.astro";
   <form action="/api/v0/auth/OAuth/provider" method="post">
     <button value="github" name="provider"  type="submit">Inicia sesión con Github</button>
   </form>
-</Layout>

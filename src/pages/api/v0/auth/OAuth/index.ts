@@ -42,5 +42,5 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
         },
     );
 
-    return redirect("/dashboard");
+    return redirect("/app");
 };

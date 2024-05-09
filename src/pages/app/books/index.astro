@@ -10,12 +10,12 @@ const { cookies, redirect } = Astro;
 const user = cookies.get("user");
 
 if (user === undefined) {
-    return redirect("/login");
+    return redirect("/");
 }
 
 const user_data: SPB_UserData = JSON.parse(user.value);
 
 ---
-<Layout>
+<Layout >
     <Userbook user_data={user_data} />
 </Layout>

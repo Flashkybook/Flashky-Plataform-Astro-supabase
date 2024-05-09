@@ -1,12 +1,169 @@
 ---
 import Layout from "@/layouts/index.astro";
+
+const { cookies, redirect, url } = Astro;
+
+const user_cookie = cookies.get("user")?.value;
+
+if (user_cookie) {
+    return redirect("/app");
+}
+
+
 ---
 
-<Layout title="Registrarse">
+<Layout  title="panel de control">
 
-    <a href="/register">register</a>
-    <a href="/login">login</a>
-    <a href="/dashboard">entrar</a>
+    <div class="relative">
+        <!-- background -->
+        <div
+            aria-hidden="true"
+            class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
+        >
+            <div
+                class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"
+            >
+            </div>
+            <div
+                class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"
+            >
+            </div>
+        </div>
+        <!-- background -->
 
-    
+        <div
+            class="relative m-auto px-6 md:px-12 lg:px-7 flex flex-col justify-center items-center h-screen"
+        >
+            <div class="lg:w-2/3 text-center mx-auto">
+                <h1
+                    class="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl"
+                >
+                    Shaping a world with <span class="text-primary"
+                        >reimagination.</span
+                    >
+                </h1>
+                <p class="mt-8 text-gray-700 dark:text-gray-300">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Odio incidunt nam itaque sed eius modi error totam sit
+                    illum. Voluptas doloribus asperiores quaerat aperiam. Quidem
+                    harum omnis beatae ipsum soluta!
+                </p>
+                <div class="flex w-full mt-6 justify-center">
+                    <div
+                        class=" rounded-3xl border bg-gray-50 dark:border-gray-700 dark:bg-gray-800 -mx-6 sm:-mx-10 p-8 sm:p-10"
+                    >
+                        <h3
+                            class="text-2xl font-semibold text-gray-700 dark:text-white"
+                        >
+                            Login to your account
+                        </h3>
+
+                        <form
+                            action="/api/v0/auth/OAuth/provider"
+                            method="post"
+                            class="mt-6 flex flex-wrap sm:grid gap-6 grid-cols-2"
+                        >
+                            <button
+                                disabled
+                                class="cursor-not-allowed
+        w-full h-11 rounded-full border border-gray-300/75 bg-white px-6 transition active:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-800 dark:hover:border-gray-700"
+                            >
+                                <div
+                                    class="w-max mx-auto flex items-center justify-center space-x-4"
+                                >
+                                    <img
+                                        src="images/google.svg"
+                                        class="w-5"
+                                        alt=""
+                                    />
+                                    <span
+                                        class="block w-max text-sm font-semibold tracking-wide text-cyan-700 dark:text-white"
+                                        >With Google</span
+                                    >
+                                </div>
+                            </button>
+                            <button
+                                value="github"
+                                name="provider"
+                                type="submit"
+                                class="w-full h-11 rounded-full bg-gray-900 px-6 transition hover:bg-gray-800 focus:bg-gray-700 active:bg-gray-600 dark:bg-gray-700 dark:border dark:border-gray-600 dark:hover:bg-gray-800 dark:hover:border-gray-700"
+                            >
+                                <div
+                                    class="w-max mx-auto flex items-center justify-center space-x-4 text-white"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor"
+                                        class="w-5"
+                                        viewBox="0 0 16 16"
+                                    >
+                                        <path
+                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                                        ></path>
+                                    </svg>
+                                    <span
+                                        class="block w-max text-sm font-semibold tracking-wide text-white"
+                                        >With Github</span
+                                    >
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="mt-4 flex flex-wrap justify-center gap-y-4 gap-x-6">
+                    <!-- <a
+                        href="/auth"
+                        class="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max"
+                    >
+                        <span
+                            class="relative text-base font-semibold text-white dark:text-dark"
+                            >Get started</span
+                        >
+                    </a> -->
+                    <!-- 
+
+                    <a
+                        href="#"
+                        class="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-gray-200 before:bg-gray-50 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max"
+                    >
+                        <span
+                            class="relative text-base font-semibold text-primary dark:text-white"
+                            >Learn more</span
+                        >
+                    </a>
+                     -->
+                </div>
+                <!-- footer -->
+                <div
+                    class="flex flex-col sm:flex-row flex-wrap  pt-8 mt-16 border-t border-gray-100 dark:border-gray-700  sm:justify-between"
+                >
+                    <div class="text-left flex-shrink-1">
+                        <h6
+                            class="text-lg font-semibold text-gray-700 dark:text-white"
+                        >
+                            The lowest price
+                        </h6>
+                        <p class="mt-2 text-gray-500">Some text here</p>
+                    </div>
+                    <div class="text-left flex-shrink-1">
+                        <h6
+                            class="text-lg font-semibold text-gray-700 dark:text-white"
+                        >
+                            The lowest price
+                        </h6>
+                        <p class="mt-2 text-gray-500">Some text here</p>
+                    </div>
+                    <div class="text-left flex-shrink-1">
+                        <h6
+                            class="text-lg font-semibold text-gray-700 dark:text-white"
+                        >
+                            The lowest price
+                        </h6>
+                        <p class="mt-2 text-gray-500">Some text here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </Layout>
