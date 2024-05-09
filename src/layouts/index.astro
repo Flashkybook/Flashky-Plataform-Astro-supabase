@@ -1,0 +1,51 @@
+---
+import Navbar from "./Navbar.astro";
+import Sidebar from "./Sidebar.astro";
+---
+
+<html lang="en" data-darkreader-scheme="dark">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Flashky</title>
+	</head>
+
+	<script>
+		// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+		if (
+			localStorage.theme === "dark" ||
+			(!("theme" in localStorage) &&
+				window.matchMedia("(prefers-color-scheme: dark)").matches)
+		) {
+			document.documentElement.classList.add("dark");
+		} else {
+			document.documentElement.classList.remove("dark");
+		}
+
+		// Whenever the user explicitly chooses light mode
+		localStorage.theme = "light";
+
+		// Whenever the user explicitly chooses dark mode
+		localStorage.theme = "dark";
+
+		// Whenever the user explicitly chooses to respect the OS preference
+		localStorage.removeItem("theme");
+	</script>
+
+	<body class="bg-gray-100 dark:bg-gray-900">
+		<!-- ./Sidebar -->
+		<!-- ./Sidebar -->
+		<!-- <div class="mx-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]"> -->
+
+		<div class="mx-auto w-full">
+			<Navbar />
+			<div class="px-6 pt-6 2xl:container ">
+					<div class="dark:text-white">
+						<slot />
+					</div>
+			</div>
+		</div>
+	</body>
+</html>
