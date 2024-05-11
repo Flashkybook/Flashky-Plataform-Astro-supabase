@@ -1,7 +1,7 @@
 ---
-import AddExpresion from "@components/AddExpression.astro";
-import Layout from "@/layouts/index.astro";
-import { supabase } from "@lib/supabase";
+import Layout from "@/layouts/index.astro"
+import { supabase } from "@lib/supabase"
+import SetBook from "@components/SetBook.astro"
 
 const { book_id, book_name } = Astro.params;
 
@@ -11,21 +11,107 @@ const { data: card_expresion, error } = await supabase
     .select("*")
     .eq("user_book_id", book_id);
 
-console.log(card_expresion);
-
-
 ---
+
 <Layout>
-    <h1>book {book_name}</h1>
+    <div class="container mx-auto mt-14">
+        <div
+            class="flex flex-col sm:flex-row items-center justify-between gap- mb-16 mt-14"
+        >
+            <form
+                method="POST"
+                action="/api/v0/userbook/add-expression"
+                class="relative flex items-center ml-auto"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6 absolute left-4 inset-y-0 my-auto"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                    ></path>
+                </svg>
+                <input type="hidden" name="user_book_id" value={book_id} />
+                <input type="hidden" name="user_book_name" value={book_name} />
+                <input
+                    type="text"
+                    name="expression"
+                    value="uno dos"
+                    name="username"
+                    id="username"
+                    placeholder="agrega nueva expresion"
+                    class="focus:outline-none block w-full rounded-full placeholder-gray-500 bg-gray-100 dark:bg-gray-800 dark:border-gray-600 pl-12 pr-4 h-12 text-gray-600 transition duration-300 invalid:ring-2 invalid:ring-red-400 focus:ring-2 focus:ring-primary"
+                />
+                <div class="absolute right-1">
+                    <button
+                        type="submit"
+                        class="relative flex h-10 w-10 sm:w-max ml-auto items-center justify-center sm:px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
+                    >
+                        <span
+                            class="hidden relative text-base font-semibold text-white dark:text-gray-900 sm:block"
+                        >
+                            add
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="flex">
+            <div
+                class="py-4 px-6 flex gap-4 rounded-3xl text-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-600 transition duration-300 y"
+            >
 
 
-    <h3>agrega nueva expresion</h3>
+              <SetBook book_id={book_id} book_name={book_name} />
 
-    <form method="POST" action="/api/v0/userbook/add-expression">
-        <input type="text" name="expression" value="" />
-        <input type="hidden" name="user_book_id" value={book_id}/>
-        <input type="hidden" name="user_book_name" value={book_name}/>
-        <input type="submit" value="crear nueva expression" />
-    </form>
-    
+                <button
+                    delete-book
+                    book-id={book_id}
+                    class="text-3xl font-bold text-red-700 bg-slate-300 rounded-full h-min px-4 flex items-center justify-center"
+                    >🗑
+                    
+                    <script>
+                        const button = document.querySelector("[delete-book]");
+                        const book_id = button?.getAttribute("book-id")
+                        button?.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            const accept = confirm("¿Deseas borrar esta tarjeta?");
+
+                            if(accept){
+                                fetch(`/api/v0/userbook/delete-${book_id}`,{
+                                    method: "POST"
+                                }).then((res) => {
+                                    console.info(res)
+                                    if(res.status == 200){
+                                        window.location.href = "/app/books"
+                                    }
+                                })
+                            }
+                        })
+                    </script>
+                    </button>
+
+
+
+            </div>
+        </div>
+
+        <div class="flex flex-col">
+            {
+                card_expresion &&
+                    card_expresion.map((v) => (
+                        <div>
+                            {v.expression_name} {v.expression_id}
+                        </div>
+                    ))
+            }
+        </div>
+    </div>
 </Layout>

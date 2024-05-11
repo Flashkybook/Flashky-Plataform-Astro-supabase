@@ -1,7 +1,9 @@
 
+# MVP app
+
 - [x] autentificación
-  - [ ] Rutas protegidas y obtención de session de usuario 
-  - [ ] Verificacion de usuario  ⏱2
+  - [x] Rutas protegidas y obtención de session de usuario 
+  - [ ] user verify  ⏱2
   - [ ] Validación de usuario autentificado para el crud ⏱3
 
 
@@ -10,7 +12,7 @@
     - [x] add
     - [ ] delete
     - [ ] set
-    - [ ] delete cards in cascade
+    - [x] delete cards in cascade
 
   - [ ] crud card 
     - [x] add card and expressions
@@ -18,13 +20,20 @@
     - [ ] delete card 
     - [ ] set card
 
+- [ ] Interface de estudio
+  - [ ] Modos de estudio
+    - [ ] by book
+    - [ ] by random
+    - [ ] all by last review
 
 - [ ] validate expressions  ⏱3
   - [ ] expression users => 0
 
 
-- [ ] Interface de estudio
-  - [ ] Modos de estudio
+# Q2 Mobil progressive web app
+- [ ] Base de datos local [web Database]
+  - [ ] user anonymous
+  - [ ] Use without connection
 
 
 
