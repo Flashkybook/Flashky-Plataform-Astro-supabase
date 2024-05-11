@@ -1,0 +1,73 @@
+---
+const { book_id, name, card_id, expression_id } = Astro.props;
+---
+
+<script>
+    class ExpressionCard extends HTMLElement {
+        constructor() {
+            super();
+            const bookId = this.dataset.bookId;
+            const cardId = this.dataset.cardId;
+            const expressionId = this.dataset.expressionId;
+            const name = this.dataset.name;
+
+            this.querySelector("button.delete")?.addEventListener("click", (e) => {
+                e.preventDefault();
+                const accept = confirm("¿Deseas borrar esta tarjeta?" + name + " card_id = " + cardId + " expression_id = " + expressionId);
+
+                if (accept) {
+                    fetch(`/api/v0/flashcard/delete?card_id=${cardId}&expression_id=${expressionId}`, {
+                        method: "DELETE",
+                    }).then((res) => {
+                        if (res.status == 200) {
+                            window.location.href = `/app/books/${bookId}-${name}`;
+                        }
+                    });
+                }
+            });
+
+        }
+    }
+
+    customElements.define("expression-card", ExpressionCard);
+</script>
+
+<expression-card
+    data-card-id={card_id}
+    data-expression-id={expression_id}
+    data-book-id={book_id}
+    data-name={name}
+    class="my-6 py-4 px-6 flex gap-4 rounded-3xl text-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-600 transition duration-300"
+>
+    <h3>{name}</h3>
+    <span>card = {card_id}</span>
+    <span>expression = {expression_id}</span>
+
+    <button
+        class="ml-auto delete"
+        delete-btn
+        class="text-3xl font-bold text-red-700 bg-slate-300 rounded-full h-min px-4 flex items-center justify-center"
+        >🗑
+
+        <!-- <script>
+            const button = document.querySelector("button[delete-btn]");
+            const card_id = button?.getAttribute("card-id");
+            console.info(button, button);
+            button?.addEventListener("click", (e) => {
+                e.preventDefault();
+                const accept = confirm("¿Deseas borrar esta tarjeta?");
+
+                if (accept) {
+                    fetch(`/api/v0/userbook/delete-${book_id}`, {
+                        method: "POST",
+                    }).then((res) => {
+                        console.info(res);
+                        if (res.status == 200) {
+                            window.location.href = "/app/books";
+                        }
+                    });
+                }
+            });
+        </script>  -->
+    </button>
+</expression-card>

@@ -23,7 +23,6 @@ const { data: userbook, error }: UserBook = await supabase
     .select("*")
     .eq("user_id", user_data.id);
 
-console.log(userbook);
 ---
 
 <div class="flex flex-col sm:flex-row items-center justify-between gap- mb-16">

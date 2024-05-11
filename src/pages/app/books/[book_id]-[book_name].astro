@@ -1,16 +1,17 @@
 ---
-import Layout from "@/layouts/index.astro"
-import { supabase } from "@lib/supabase"
-import SetBook from "@components/SetBook.astro"
+import Layout from "@/layouts/index.astro";
+import { supabase } from "@lib/supabase";
+import SetBook from "@components/SetBook.astro";
+
+import FlashCard from "@components/FlashCard.astro";
 
 const { book_id, book_name } = Astro.params;
 
 //  get all card_expresion
 const { data: card_expresion, error } = await supabase
-    .from("card_expression")
+    .from("flashcard")
     .select("*")
     .eq("user_book_id", book_id);
-
 ---
 
 <Layout>
@@ -20,7 +21,7 @@ const { data: card_expresion, error } = await supabase
         >
             <form
                 method="POST"
-                action="/api/v0/userbook/add-expression"
+                action="/api/v0/flashcard/add"
                 class="relative flex items-center ml-auto"
             >
                 <svg
@@ -40,11 +41,11 @@ const { data: card_expresion, error } = await supabase
                 <input type="hidden" name="user_book_id" value={book_id} />
                 <input type="hidden" name="user_book_name" value={book_name} />
                 <input
+                    required
                     type="text"
                     name="expression"
                     value="uno dos"
                     name="username"
-                    id="username"
                     placeholder="agrega nueva expresion"
                     class="focus:outline-none block w-full rounded-full placeholder-gray-500 bg-gray-100 dark:bg-gray-800 dark:border-gray-600 pl-12 pr-4 h-12 text-gray-600 transition duration-300 invalid:ring-2 invalid:ring-red-400 focus:ring-2 focus:ring-primary"
                 />
@@ -65,41 +66,38 @@ const { data: card_expresion, error } = await supabase
 
         <div class="flex">
             <div
-                class="py-4 px-6 flex gap-4 rounded-3xl text-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-600 transition duration-300 y"
+                class="py-4 px-6 flex gap-4 rounded-3xl text-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-600 transition duration-300"
             >
-
-
-              <SetBook book_id={book_id} book_name={book_name} />
+                <SetBook book_id={book_id} book_name={book_name} />
 
                 <button
                     delete-book
                     book-id={book_id}
                     class="text-3xl font-bold text-red-700 bg-slate-300 rounded-full h-min px-4 flex items-center justify-center"
                     >🗑
-                    
+
                     <script>
                         const button = document.querySelector("[delete-book]");
-                        const book_id = button?.getAttribute("book-id")
+                        const book_id = button?.getAttribute("book-id");
                         button?.addEventListener("click", (e) => {
                             e.preventDefault();
-                            const accept = confirm("¿Deseas borrar esta tarjeta?");
+                            const accept = confirm(
+                                "¿Deseas borrar esta tarjeta?",
+                            );
 
-                            if(accept){
-                                fetch(`/api/v0/userbook/delete-${book_id}`,{
-                                    method: "POST"
+                            if (accept) {
+                                fetch(`/api/v0/userbook/delete-${book_id}`, {
+                                    method: "POST",
                                 }).then((res) => {
-                                    console.info(res)
-                                    if(res.status == 200){
-                                        window.location.href = "/app/books"
+                                    console.info(res);
+                                    if (res.status == 200) {
+                                        window.location.href = "/app/books";
                                     }
-                                })
+                                });
                             }
-                        })
+                        });
                     </script>
-                    </button>
-
-
-
+                </button>
             </div>
         </div>
 
@@ -108,7 +106,12 @@ const { data: card_expresion, error } = await supabase
                 card_expresion &&
                     card_expresion.map((v) => (
                         <div>
-                            {v.expression_name} {v.expression_id}
+                            <FlashCard
+                                name={v.expression_name}
+                                book_id={book_id}
+                                card_id={v.id}
+                                expression_id={v.expression_id}
+                            />
                         </div>
                     ))
             }

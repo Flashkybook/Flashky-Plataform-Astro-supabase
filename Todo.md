@@ -1,22 +1,19 @@
 
-# MVP app
 
+
+# MVP app
 - [x] autentificación
   - [x] Rutas protegidas y obtención de session de usuario 
-  - [ ] user verify  ⏱2
-  - [ ] Validación de usuario autentificado para el crud ⏱3
 
-
-- [ ] Crud supabase
-  - [ ] book 📁
+- [x] Crud supabase
+  - [x] book 📁
     - [x] add
-    - [ ] delete
-    - [ ] set
+    - [x] delete
+    - [x] set
     - [x] delete cards in cascade
 
   - [ ] crud card 
     - [x] add card and expressions
-      - [ ] suggestion de expression similar Expression o equal ⏱3
     - [ ] delete card 
     - [ ] set card
 
@@ -26,14 +23,21 @@
     - [ ] by random
     - [ ] all by last review
 
+- [ ] validations 
+- [ ] auth
+  - [ ] User verify  ⏱2
+  - [ ] Validación de usuario autentificado para el crud ⏱3
 - [ ] validate expressions  ⏱3
   - [ ] expression users => 0
+  - [ ] card expression crud
+    - [ ] suggestion de expression similar Expression o equal ⏱3
+  - [ ] 
 
 
-# Q2 Mobil progressive web app
+# Q2 Mobil progressive web app and users verify expressions
 - [ ] Base de datos local [web Database]
   - [ ] user anonymous
-  - [ ] Use without connection
+  - [ ] Use without connection and sync
 
 
 
@@ -103,3 +107,7 @@ Algoritmos de Rsp
 https://super-memory.com/english/ol/sm2.htm
 https://github.com/Maxvien/supermemo
 
+
+# Monetizacion
+
+https://www.lemonsqueezy.com/
