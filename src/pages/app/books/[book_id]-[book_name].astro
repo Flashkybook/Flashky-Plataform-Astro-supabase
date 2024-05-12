@@ -4,8 +4,19 @@ import { supabase } from "@lib/supabase";
 import SetBook from "@components/SetBook.astro";
 
 import FlashCard from "@components/FlashCard.astro";
+import type { SPB_UserData } from "@env";
 
 const { book_id, book_name } = Astro.params;
+
+const { cookies, redirect, url } = Astro;
+const user_cookie = cookies.get("user")?.value;
+
+if (user_cookie === undefined) {
+    return redirect("/");
+}
+
+const user_data: SPB_UserData =
+    user_cookie && JSON.parse(user_cookie as string);
 
 //  get all card_expresion
 const { data: card_expresion, error } = await supabase
@@ -39,6 +50,7 @@ const { data: card_expresion, error } = await supabase
                     ></path>
                 </svg>
                 <input type="hidden" name="user_book_id" value={book_id} />
+                <input type="hidden" name="user_id" value={user_data.id} />
                 <input type="hidden" name="user_book_name" value={book_name} />
                 <input
                     required
@@ -107,8 +119,9 @@ const { data: card_expresion, error } = await supabase
                     card_expresion.map((v) => (
                         <div>
                             <FlashCard
+                            set={true}
                                 name={v.expression_name}
-                                book_id={book_id}
+                                userBook_id={book_id as string}
                                 card_id={v.id}
                                 expression_id={v.expression_id}
                             />

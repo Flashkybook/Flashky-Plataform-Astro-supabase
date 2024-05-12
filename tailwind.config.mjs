@@ -5,6 +5,5 @@ export default {
 		extend: {},
 	},
 	darkMode: 'selector',
-	plugins: [require("tw-elements/plugin.cjs")],
-	darkMode: "class"
+	plugins: [],
 }

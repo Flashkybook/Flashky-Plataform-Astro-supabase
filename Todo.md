@@ -1,5 +1,5 @@
 
-
+- [ ] quit user from cookies
 
 # MVP app
 - [x] autentificación
@@ -12,18 +12,35 @@
     - [x] set
     - [x] delete cards in cascade
 
-  - [ ] crud card 
+  - [x] crud card 
     - [x] add card and expressions
-    - [ ] delete card 
-    - [ ] set card
+    - [x] delete card 
 
 - [ ] Interface de estudio
+  - [ ] basic
+    - [ ] Api 
+      - [ ] get and generate random list study
+        - [x] by last review
+        - [ ] by params
+          - [ ] book
+          - [ ] quantity
+      - [ ] on finish round
+    - [ ] study round
+      - [x] no query
+        - [x] random by last review or null
+      - [x] Save in storage round
+        - [ ] save errors
+      - [ ] On finish get results
+        - [ ] save next review by flashcards
+
+
   - [ ] Modos de estudio
     - [ ] by book
     - [ ] by random
     - [ ] all by last review
 
-- [ ] validations 
+
+## - [ ] validations 
 - [ ] auth
   - [ ] User verify  ⏱2
   - [ ] Validación de usuario autentificado para el crud ⏱3
@@ -32,14 +49,27 @@
   - [ ] card expression crud
     - [ ] suggestion de expression similar Expression o equal ⏱3
   - [ ] 
+- [ ] set card
+
+- [ ] databases query https://supabase.com/docs/reference/javascript/filter
 
 
 # Q2 Mobil progressive web app and users verify expressions
 - [ ] Base de datos local [web Database]
   - [ ] user anonymous
   - [ ] Use without connection and sync
+  - [ ] delete Json
 
+# options sync db
+### IndexedDB 
+  - https://caniuse.com/?search=IndexedDB
+  - https://web.dev/articles/indexeddb-best-practices?hl=es-419
+  - https://dexie.org/
+  - https://developer.mozilla.org/es/docs/Web/API/IndexedDB_API/Using_IndexedDB
+- cookies: for session from backend and expire data  
+- locals
 
+- Web SQL [❌ deprecated]
 
 
 # Ui
@@ -67,10 +97,6 @@ theme
 
 
 
-# Posibilidad
-
-
-
 # [ ] Relación base de datos
 
 - [ ] expresión: frase, palabra, sonido, etc
@@ -78,7 +104,7 @@ theme
   - [ ] agregado por
   - [ ] validación: determina si la expresión es correcta o debe mejorarse o si es similar
   - [ ] Relacionados
-  - [ ] Tipo: Frase, american speed
+  - [ ] Tipo: Frase, American speed
   - [ ] Optimo generador de audio
     - [ ] url audio por api
 
@@ -108,6 +134,6 @@ https://super-memory.com/english/ol/sm2.htm
 https://github.com/Maxvien/supermemo
 
 
-# Monetizacion
+# Modelización
 
 https://www.lemonsqueezy.com/

@@ -6,6 +6,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     const expression = formData.get("expression")?.toString().toLocaleLowerCase();
     const user_book_id = formData.get("user_book_id");
     const user_book_name = formData.get("user_book_name");
+    const user_id = formData.get("user_id");
 
     try {
         let expression_data: { id: string, name: string }
@@ -49,6 +50,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
             .from("flashcard")
             .insert({
                 user_book_id: user_book_id,
+                user_own_id: user_id,
                 expression_id: expression_data.id,
                 expression_name: expression_data.name,
             })

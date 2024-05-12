@@ -1,0 +1,20 @@
+---
+import Layout from "@layouts/index.astro";
+import Study from "@components/ui/preat/Study/index";
+
+
+const { cookies, redirect } = Astro;
+const user_cookie = cookies.get("user")?.value;
+if (user_cookie === undefined) {
+    return redirect("/");
+}
+
+
+---
+
+<Layout>
+    <div class="container mx-auto mt-14">
+
+        <Study client:only="preact" />
+    </div>
+</Layout>
