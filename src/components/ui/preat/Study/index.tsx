@@ -1,9 +1,9 @@
 
 import { useEffect, useState } from "preact/hooks";
-import type { SPB_FlashCard } from "@env";
 
+import type { SPB_FlashCard } from "@env";
 import { useStore } from '@nanostores/preact'
-import { study_session } from "@/lib/db/nanostores/study";
+import { study_session } from "@lib/db/nanostores/studyStore";
 import type { JSXInternal } from "node_modules/preact/src/jsx";
 
 
@@ -18,7 +18,7 @@ import type { JSXInternal } from "node_modules/preact/src/jsx";
 
 
 
-const getFlashcards = () => {
+const newSession = () => {
     fetch("/api/v0/study/new_round")
         .then((res) => res.json())
         .then((res: SPB_FlashCard[]) => {
@@ -31,23 +31,8 @@ const getFlashcards = () => {
 export default function Study() {
 
     if (study_session.get().flashcards.list.length < 1) {
-        confirm("nueva session")
-        return getFlashcards()
+        newSession()
     }
-
-
-
-    const newSession = () => {
-        study_session.set({
-            current: 0,
-            flashcards: {
-                list: [], finished: []
-            }
-
-        })
-        confirm("session eliminada")
-    }
-
     return (
         <div>
             <div class={"flex justify-between"}>
@@ -58,7 +43,7 @@ export default function Study() {
 
             <div class={"inline  "}>
                 <div className="flex justify-center">
-                    <Card card={study_session.get().flashcards.list[study_session.get().current]} />
+                    <Card />
                 </div>
 
             </div>
@@ -69,30 +54,76 @@ export default function Study() {
 
 
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
-const Card = ({ card }: { card: SPB_FlashCard }) => {
+const Card = () => {
+    const session = useStore(study_session)
+    const current_card: SPB_FlashCard = session.flashcards.list[session.current.index]
+ 
 
 
     const nextCurrent = () => {
-        console.log(study_session.get().current)
-        if(study_session.get().current <= study_session.get().flashcards.list.length -1 ){
-            study_session.setKey("current", study_session.get().current + 1)
-        }else{
-            study_session.setKey("current", 0)
-            alert("restablece la session")
+
+        // remove from flashcards.list and add to flashcards.finished
+        if (session.current.incorrect == false) {
+            session.flashcards.finished.push(session.flashcards.list[session.current.index])
+            session.flashcards.list.splice(session.current.index, 1)
+            study_session.set({
+                flashcards: {
+                    list: session.flashcards.list,
+                    finished: session.flashcards.finished
+                },
+                current: {
+                    index: session.current.index,
+                    incorrect: false
+                }
+            })
+            session.flashcards = study_session.get().flashcards
+            console.log(session.flashcards)
+            if(session.flashcards.list.length < 1){
+                window.location.href = "/app/study/results";                
+            }
+
+        } else {
+            if (session.current.index == session.flashcards.list.length - 1) {
+                study_session.setKey("current", {
+                    index: 0,
+                    incorrect: false
+                },)
+            } else {
+                study_session.setKey("current", {
+                    index: session.current.index + 1,
+                    incorrect: false
+                },
+
+                )
+            }
         }
+
     }
+
 
     const handleSubmit = (e: JSXInternal.TargetedSubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
-        nextCurrent()
+        const answer = e.currentTarget.getElementsByTagName("input")[0].value
+
+
+        // // Manejo de correcto o incorrecto
+        if (answer == current_card.expression_name) {
+            nextCurrent()
+
+        } else if (session.current.incorrect = false) {
+            session.current.incorrect = true
+            session.flashcards.list[session.current.index].repeats = session.flashcards.list[session.current.index].repeats + 1
+        }
+        e.currentTarget.reset()
+
     }
+
 
     return (
 
         <div class={"text-center flex flex-col justify-center p-8 bg-slate-700 rounded-3xl gap-y-6"}>
-            {card.expression_name}
+            {current_card.expression_name}
             <form onSubmit={e => handleSubmit(e)}>
-
                 <input type="text" placeholder={"answer"} class={"w-full outline-none rounded-sm border-green-500 bg-slate-900 px-4"} name={"answer"} />
             </form>
         </div>

@@ -24,14 +24,15 @@
         - [ ] by params
           - [ ] book
           - [ ] quantity
-      - [ ] on finish round
+      - [x] on finish round
     - [ ] study round
       - [x] no query
         - [x] random by last review or null
       - [x] Save in storage round
-        - [ ] save errors
+        - [x] save errors
       - [ ] On finish get results
         - [ ] save next review by flashcards
+  - [ ] Testing and accesibilidad
 
 
   - [ ] Modos de estudio
@@ -40,7 +41,7 @@
     - [ ] all by last review
 
 
-## - [ ] validations 
+## - [ ] validations and testing
 - [ ] auth
   - [ ] User verify  ⏱2
   - [ ] Validación de usuario autentificado para el crud ⏱3
@@ -52,6 +53,10 @@
 - [ ] set card
 
 - [ ] databases query https://supabase.com/docs/reference/javascript/filter
+
+## testing
+https://youtu.be/JW_x-Tq5Vt0?t=2713
+
 
 
 # Q2 Mobil progressive web app and users verify expressions

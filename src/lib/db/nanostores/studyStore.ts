@@ -2,7 +2,8 @@ import type { SPB_FlashCard } from '@env'
 import { persistentMap } from '@nanostores/persistent'
 
 // https://github.com/nanostores/persistent
-
+// https://github.com/nanostores
+// https://github.com/nanostores/preact
 
 /**
  * persistencia de datos
@@ -22,13 +23,22 @@ interface FlashcardSession {
 
 interface StudySession {
     // active: boolean
-    current: number
-    flashcards: FlashcardSession 
+    current: any
+    flashcards: FlashcardSession
 }
-
+// function() {
+//     fetch("/api/v0/study/new_round")
+//         .then((res) => res.json())
+//         .then((res: SPB_FlashCard[]) => {
+//             study_session.setKey("flashcards", { list: res, finished: [] })
+//         });  
+// },
 
 export const study_session = persistentMap('study_session:', <StudySession>{
-    current: 0,
+    current: {
+        index: 0,
+        incorrect: false
+    },
     flashcards: {
         list: [],
         finished: [],
