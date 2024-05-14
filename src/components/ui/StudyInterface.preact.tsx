@@ -4,6 +4,7 @@ import type { SPB_FlashCard } from "@env";
 import { useStore } from '@nanostores/preact'
 import { $study_session } from "@lib/db/nanostores/study.store";
 import type { JSXInternal } from "node_modules/preact/src/jsx";
+import { useEffect } from "preact/hooks";
 
 
 /**
@@ -52,12 +53,31 @@ export default function Study() {
 
 
 
+
+
+
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
 const Card = () => {
     const session = useStore($study_session)
     const current_card: SPB_FlashCard = session.flashcards.list[session.current.index]
- 
 
+    
+    const audioURL = window.location.origin + `/tts?expression=` +
+    encodeURIComponent(current_card.expression_name)
+    const audio_data = new Audio( audioURL)
+
+    const playSound = () => {
+        audio_data.currentTime = 0
+        setTimeout(() => {
+            audio_data.play()
+        }, 250);
+    }
+
+    useEffect(() => {
+        setTimeout(() => {
+            playSound()
+        },500)
+    })
 
     const nextCurrent = () => {
 
@@ -77,8 +97,8 @@ const Card = () => {
             })
             session.flashcards = $study_session.get().flashcards
             console.log(session.flashcards)
-            if(session.flashcards.list.length < 1){
-                window.location.href = "/app/study/results";                
+            if (session.flashcards.list.length < 1) {
+                window.location.href = "/app/study/results";
             }
 
         } else {
@@ -121,6 +141,13 @@ const Card = () => {
     return (
 
         <div class={"text-center flex flex-col justify-center p-8 bg-slate-700 rounded-3xl gap-y-6"}>
+
+            <button onClick={() => playSound()}>
+                <span class="material-symbols-outlined">
+                    volume_up
+                </span>
+            </button>
+
             {current_card.expression_name}
             <form onSubmit={e => handleSubmit(e)}>
                 <input type="text" placeholder={"answer"} class={"w-full outline-none rounded-sm border-green-500 bg-slate-900 px-4"} name={"answer"} />
