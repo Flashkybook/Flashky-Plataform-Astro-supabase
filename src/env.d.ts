@@ -20,9 +20,7 @@ interface ImportMeta {
 
 export interface SPB_UserData {
   id: string
-  email: string
-  user_metadata: UserMetadata
-  app_metadata: AppMetadata
+  user_name: string
   role: string
   is_anonymous: boolean
 }

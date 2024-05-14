@@ -1,13 +1,23 @@
 ---
-import type { SPB_UserData } from "@/env";
-const { cookies, redirect, url } = Astro;
+import { $user } from "@/lib/db/nanostores/user.store";
 
-const user_cookie = cookies.get("user")?.value;
-if (user_cookie === undefined ) {
-	return redirect("/");
+/**
+ * 3 cases
+ * case 1 rutas protegidas solo para usuarios autenticados
+ * caso 2 rutas protegidas solo para usuarios no autenticados ["/"]
+ * caso 3 rutas libres para todos ejemplo [landing, release, news, ...]
+ */
+
+const protectedRoutes = ["/app", "/app/*"];
+
+if (protectedRoutes.includes(Astro.url.pathname)) {
+	if (!$user.get()) {
+		console.log(globalThis)
+		// return Astro.redirect("/");
+	}
 }
 
-const user_data:SPB_UserData = user_cookie && JSON.parse(user_cookie as string);
+
 ---
 
-<slot/>
+<slot />

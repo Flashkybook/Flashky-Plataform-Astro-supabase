@@ -18,30 +18,47 @@
 
 - [ ] Interface de estudio
   - [ ] basic
-    - [ ] Api 
-      - [ ] get and generate random list study
+    - [x] Api 
+      - [x] get and generate random list study
         - [x] by last review
-        - [ ] by params
-          - [ ] book
-          - [ ] quantity
+
       - [x] on finish round
-    - [ ] study round
+    - [x] study round
       - [x] no query
         - [x] random by last review or null
       - [x] Save in storage round
         - [x] save errors
-      - [ ] On finish get results
-        - [ ] save next review by flashcards
-  - [ ] Testing and accesibilidad
+  
+  - [ ] save On finish get results
+    - [ ] save next review by flashcards
+    - [x] Pass Auth to local storage 
+    - [ ] TTS Api
+      - [ ] Deploy
 
 
-  - [ ] Modos de estudio
-    - [ ] by book
-    - [ ] by random
-    - [ ] all by last review
+- [ ] Testing and accessibility
+  - [ ] Prioridades 
+    - [ ] Auth
+    - [ ] LocalDatabase
+    - [ ] Sync database
+    - [ ] Refactor
 
 
-## - [ ] validations and testing
+- [ ] Modos de estudio
+  - [ ] by book
+  - [ ] by random
+  - [x] all by last review
+  - [ ] by params
+    - [ ] book
+    - [ ] quantity
+
+## - [ ] UI,  validations and testing
+- [ ] add material UI
+  - [ ] App bard
+  - [ ] Dashboard cards
+  - [ ] Lists
+    - [ ] Audios
+    - [ ] Statistics
 - [ ] auth
   - [ ] User verify  ⏱2
   - [ ] Validación de usuario autentificado para el crud ⏱3

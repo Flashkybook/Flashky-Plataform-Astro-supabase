@@ -1,9 +1,8 @@
 
-import { useEffect, useState } from "preact/hooks";
 
 import type { SPB_FlashCard } from "@env";
 import { useStore } from '@nanostores/preact'
-import { study_session } from "@lib/db/nanostores/studyStore";
+import { $study_session } from "@lib/db/nanostores/study.store";
 import type { JSXInternal } from "node_modules/preact/src/jsx";
 
 
@@ -22,7 +21,7 @@ const newSession = () => {
     fetch("/api/v0/study/new_round")
         .then((res) => res.json())
         .then((res: SPB_FlashCard[]) => {
-            study_session.setKey("flashcards", { list: res, finished: [] })
+            $study_session.setKey("flashcards", { list: res, finished: [] })
         });
 }
 
@@ -30,7 +29,7 @@ const newSession = () => {
  * @returns carrusel of cards*/
 export default function Study() {
 
-    if (study_session.get().flashcards.list.length < 1) {
+    if ($study_session.get().flashcards.list.length < 1) {
         newSession()
     }
     return (
@@ -55,7 +54,7 @@ export default function Study() {
 
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
 const Card = () => {
-    const session = useStore(study_session)
+    const session = useStore($study_session)
     const current_card: SPB_FlashCard = session.flashcards.list[session.current.index]
  
 
@@ -66,7 +65,7 @@ const Card = () => {
         if (session.current.incorrect == false) {
             session.flashcards.finished.push(session.flashcards.list[session.current.index])
             session.flashcards.list.splice(session.current.index, 1)
-            study_session.set({
+            $study_session.set({
                 flashcards: {
                     list: session.flashcards.list,
                     finished: session.flashcards.finished
@@ -76,7 +75,7 @@ const Card = () => {
                     incorrect: false
                 }
             })
-            session.flashcards = study_session.get().flashcards
+            session.flashcards = $study_session.get().flashcards
             console.log(session.flashcards)
             if(session.flashcards.list.length < 1){
                 window.location.href = "/app/study/results";                
@@ -84,12 +83,12 @@ const Card = () => {
 
         } else {
             if (session.current.index == session.flashcards.list.length - 1) {
-                study_session.setKey("current", {
+                $study_session.setKey("current", {
                     index: 0,
                     incorrect: false
                 },)
             } else {
-                study_session.setKey("current", {
+                $study_session.setKey("current", {
                     index: session.current.index + 1,
                     incorrect: false
                 },

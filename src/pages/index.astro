@@ -1,14 +1,10 @@
 ---
 import Layout from "@/layouts/index.astro";
+import {$user} from '@/lib/db/nanostores/user.store'
 
-const { cookies, redirect, url } = Astro;
-
-const user_cookie = cookies.get("user")?.value;
-
-if (user_cookie) {
-    return redirect("/app");
+if ($user.get() && Astro.url.pathname == "/") {
+    return Astro.redirect("/app");
 }
-
 
 ---
 

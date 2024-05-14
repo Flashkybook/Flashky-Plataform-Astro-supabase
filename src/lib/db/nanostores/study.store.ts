@@ -26,15 +26,8 @@ interface StudySession {
     current: any
     flashcards: FlashcardSession
 }
-// function() {
-//     fetch("/api/v0/study/new_round")
-//         .then((res) => res.json())
-//         .then((res: SPB_FlashCard[]) => {
-//             study_session.setKey("flashcards", { list: res, finished: [] })
-//         });  
-// },
 
-export const study_session = persistentMap('study_session:', <StudySession>{
+const InitialState = {
     current: {
         index: 0,
         incorrect: false
@@ -43,7 +36,18 @@ export const study_session = persistentMap('study_session:', <StudySession>{
         list: [],
         finished: [],
     }
-}, {
+}
+
+export const $study_session = persistentMap('study_session:', <StudySession>InitialState, {
     encode: JSON.stringify,
     decode: JSON.parse,
 })
+
+export const newSession = () => {
+    // modificar el Current
+    fetch("/api/v0/study/new_round")
+        .then((res) => res.json())
+        .then((res: SPB_FlashCard[]) => {
+            $study_session.setKey("flashcards", { list: res, finished: [] })
+        });
+}

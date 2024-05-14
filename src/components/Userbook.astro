@@ -1,7 +1,7 @@
 ---
 import { supabase } from "@lib/supabase";
-
-import type { SPB_UserData, SPB_UserBook } from "@/env";
+import {$user} from '@/lib/db/nanostores/user.store'
+import type { SPB_UserBook } from "@/env";
 import AddUserbook from "./AddUserbook.astro";
 
 // types
@@ -10,18 +10,18 @@ import type {
     PostgrestError,
 } from "@supabase/supabase-js";
 type UserBook = PostgrestSingleResponse<SPB_UserBook[]>;
-interface Props {
-    user_data: SPB_UserData;
-}
 
-// props
-const { user_data } = Astro.props;
+const userdata = $user.get();
+
+if (userdata == undefined) {
+    return false
+}
 
 // supabase userbook
 const { data: userbook, error }: UserBook = await supabase
     .from("user-book")
     .select("*")
-    .eq("user_id", user_data.id);
+    .eq("user_id", userdata.id);
 
 ---
 
@@ -30,7 +30,7 @@ const { data: userbook, error }: UserBook = await supabase
     <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">
         Lista de libros
     </h3>
-    <AddUserbook user_id={user_data.id} />
+    <AddUserbook user_id={userdata.id} />
 </div>
 
 

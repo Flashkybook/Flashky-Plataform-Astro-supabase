@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from "@lib/supabase";
+import { $user } from '@/lib/db/nanostores/user.store'
 
 export const GET: APIRoute = async ({ url, cookies, redirect }) => {
     const authCode = url.searchParams.get("code");
@@ -24,7 +25,7 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
     cookies.set("sb-refresh-token", refresh_token, {
         path: "/",
     });
-    
+
     // todo add verify at expire
     if (expires_at !== undefined) {
         cookies.set("sb-expires_at", expires_at.toString(), {
@@ -32,14 +33,9 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
         });
     }
 
-    const { id, email, user_metadata, app_metadata, role, is_anonymous } = data.user;
+    const { id, user_metadata, role, is_anonymous } = data.user;
 
-    cookies.set(
-        "user",
-        { id, email, user_metadata, app_metadata, role, is_anonymous },
-        {
-            path: "/",
-        },
+    $user.set({ id, user_name: user_metadata.user_name, role: role!, is_anonymous: is_anonymous ? true : false },
     );
 
     return redirect("/app");
