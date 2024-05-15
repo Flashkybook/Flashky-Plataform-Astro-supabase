@@ -30,7 +30,8 @@ interface StudySession {
 const InitialState = {
     current: {
         index: 0,
-        incorrect: false
+        incorrect: false,
+        error_message: ""
     },
     flashcards: {
         list: [],
@@ -38,16 +39,17 @@ const InitialState = {
     }
 }
 
-export const $study_session = persistentMap('study_session:', <StudySession>InitialState, {
+export const $session = persistentMap('session', <StudySession>InitialState, {
     encode: JSON.stringify,
     decode: JSON.parse,
 })
+
 
 export const newSession = () => {
     // modificar el Current
     fetch("/api/v0/study/new_round")
         .then((res) => res.json())
         .then((res: SPB_FlashCard[]) => {
-            $study_session.setKey("flashcards", { list: res, finished: [] })
+            $session.setKey("flashcards", { list: res, finished: [] })
         });
 }

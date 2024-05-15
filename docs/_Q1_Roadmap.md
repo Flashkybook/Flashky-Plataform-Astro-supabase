@@ -30,7 +30,7 @@
 - [x] [TTS Api](https://github.com/Flashkybook/tts_api)
   - [x] [Deploy](https://tts-api-96an.onrender.com/tts/?expression=)
 
-- [ ] Integration de la api a los audios
+- [x] Integration de la api a los audios
   - [ ] feedback message
 
 - [ ] save on finish get results

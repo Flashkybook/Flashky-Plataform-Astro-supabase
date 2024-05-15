@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "test": "vitest",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
@@ -22,8 +23,13 @@
     "astro": "^4.7.1",
     "nanostores": "^0.10.3",
     "preact": "^10.21.0",
+    "puppeteer": "^22.8.2",
     "rollup": "^4.17.2",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "happy-dom": "^14.11.0",
+    "vitest": "^1.6.0"
   }
 }

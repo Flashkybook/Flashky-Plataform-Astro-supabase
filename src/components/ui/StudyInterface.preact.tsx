@@ -2,9 +2,9 @@
 
 import type { SPB_FlashCard } from "@env";
 import { useStore } from '@nanostores/preact'
-import { $study_session } from "@lib/db/nanostores/study.store";
+import { $session, newSession } from "@lib/db/nanostores/study.store";
 import type { JSXInternal } from "node_modules/preact/src/jsx";
-import { useEffect } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 
 /**
@@ -18,19 +18,12 @@ import { useEffect } from "preact/hooks";
 
 
 
-const newSession = () => {
-    fetch("/api/v0/study/new_round")
-        .then((res) => res.json())
-        .then((res: SPB_FlashCard[]) => {
-            $study_session.setKey("flashcards", { list: res, finished: [] })
-        });
-}
 
 /**
  * @returns carrusel of cards*/
 export default function Study() {
 
-    if ($study_session.get().flashcards.list.length < 1) {
+    if ($session.get().flashcards.list.length < 1) {
         newSession()
     }
     return (
@@ -58,15 +51,23 @@ export default function Study() {
 
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
 const Card = () => {
-    const session = useStore($study_session)
+    const session = useStore($session)
     const current_card: SPB_FlashCard = session.flashcards.list[session.current.index]
 
-    
+    const messages = {
+        correct: "Correcto!",
+        incorrect: "Incorrecto"
+    }
+    const [errorMessage, setErrorMessage] = useState<String | null>(null)
+
+
     const audioURL = window.location.origin + `/tts?expression=` +
-    encodeURIComponent(current_card.expression_name)
-    const audio_data = new Audio( audioURL)
+        encodeURIComponent(current_card.expression_name)
+    const audio_data = new Audio(audioURL)
 
     const playSound = () => {
+        const input = document.querySelector("input[aria-label='answer']") as HTMLInputElement
+        input.focus()
         audio_data.currentTime = 0
         setTimeout(() => {
             audio_data.play()
@@ -76,7 +77,7 @@ const Card = () => {
     useEffect(() => {
         setTimeout(() => {
             playSound()
-        },500)
+        }, 500)
     })
 
     const nextCurrent = () => {
@@ -85,7 +86,7 @@ const Card = () => {
         if (session.current.incorrect == false) {
             session.flashcards.finished.push(session.flashcards.list[session.current.index])
             session.flashcards.list.splice(session.current.index, 1)
-            $study_session.set({
+            $session.set({
                 flashcards: {
                     list: session.flashcards.list,
                     finished: session.flashcards.finished
@@ -95,7 +96,7 @@ const Card = () => {
                     incorrect: false
                 }
             })
-            session.flashcards = $study_session.get().flashcards
+            session.flashcards = $session.get().flashcards
             console.log(session.flashcards)
             if (session.flashcards.list.length < 1) {
                 window.location.href = "/app/study/results";
@@ -103,12 +104,12 @@ const Card = () => {
 
         } else {
             if (session.current.index == session.flashcards.list.length - 1) {
-                $study_session.setKey("current", {
+                $session.setKey("current", {
                     index: 0,
                     incorrect: false
                 },)
             } else {
-                $study_session.setKey("current", {
+                $session.setKey("current", {
                     index: session.current.index + 1,
                     incorrect: false
                 },
@@ -124,18 +125,26 @@ const Card = () => {
         e.preventDefault()
         const answer = e.currentTarget.getElementsByTagName("input")[0].value
 
-
         // // Manejo de correcto o incorrecto
         if (answer == current_card.expression_name) {
-            nextCurrent()
+            console.log("correcto")
+            console.log($session.get().flashcards.list[session.current.index])
 
-        } else if (session.current.incorrect = false) {
-            session.current.incorrect = true
-            session.flashcards.list[session.current.index].repeats = session.flashcards.list[session.current.index].repeats + 1
+            nextCurrent()
+            setErrorMessage(null)
+
+        } else if (session.current.incorrect == false) {
+            console.log("es incorrecto por primera ves")
+            session.current.incorrect = true            
+            console.log($session.get().flashcards.list[session.current.index])
+
         }
+
         e.currentTarget.reset()
 
     }
+    console.log($session.get().flashcards)
+
 
 
     return (
@@ -148,10 +157,13 @@ const Card = () => {
                 </span>
             </button>
 
-            {current_card.expression_name}
+            {/* {current_card.expression_name} */}
+            {session.current.incorrect && "Expression correcta es "  + current_card.expression_name}
+
             <form onSubmit={e => handleSubmit(e)}>
-                <input type="text" placeholder={"answer"} class={"w-full outline-none rounded-sm border-green-500 bg-slate-900 px-4"} name={"answer"} />
+                <input aria-label={"answer"} type="text" placeholder={"answer"} class={"w-full outline-none rounded-sm border-green-500 bg-slate-900 px-4"} name={"answer"} />
             </form>
+
         </div>
     )
 }

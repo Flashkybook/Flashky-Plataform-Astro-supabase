@@ -16,7 +16,8 @@
         "src/components/*"
       ],
       "@env": [
-        "src/env.d.ts"
+        "src/env.d.ts",
+        
       ],
       "@layouts/*": [
         "src/layouts/*"
