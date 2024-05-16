@@ -47,7 +47,7 @@ export const $session = persistentMap('session', <StudySession>InitialState, {
 
 export const newSession = () => {
     // modificar el Current
-    fetch("/api/v0/study/new_round")
+    fetch("http://localhost:4321/api/v0/study/new_round")
         .then((res) => res.json())
         .then((res: SPB_FlashCard[]) => {
             $session.setKey("flashcards", { list: res, finished: [] })
