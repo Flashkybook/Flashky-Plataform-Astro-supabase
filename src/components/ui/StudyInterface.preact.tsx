@@ -62,7 +62,7 @@ const Card = () => {
 
 
     const audioURL = window.location.origin + `/tts?expression=` +
-        encodeURIComponent(current_card.expression_name)
+        encodeURIComponent(current_card?.expression_name)
     const audio_data = new Audio(audioURL)
 
     const playSound = () => {
@@ -74,11 +74,7 @@ const Card = () => {
         }, 250);
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            playSound()
-        }, 500)
-    })
+ 
 
     const nextCurrent = () => {
 

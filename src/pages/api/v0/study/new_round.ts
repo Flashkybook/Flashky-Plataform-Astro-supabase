@@ -6,7 +6,15 @@ import { $user } from '@/lib/db/nanostores/user.store'
 export const GET: APIRoute = async ({ cookies, locals, redirect }) => {
     // TODO: add query for book and type of session
     const user_data = $user.get();
-    if (!user_data) {return new Response("usuario no autenticado", { status: 400 });}
+    if (!user_data) {
+        const { data: flashcards, error } = await supabase
+            .from("flashcard")
+            .select("*")
+            .range(0, 4)
+
+        return new Response(JSON.stringify(flashcards))
+
+    }
 
     const { data: flashcards, error } = await supabase
         .from("flashcard")

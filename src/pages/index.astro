@@ -1,14 +1,22 @@
 ---
 import Layout from "@/layouts/index.astro";
-import {$user} from '@/lib/db/nanostores/user.store'
+import { $user } from "@/lib/db/nanostores/user.store";
+
+import Study from "@components/ui/StudyInterface.preact";
 
 if ($user.get() && Astro.url.pathname == "/") {
     return Astro.redirect("/app");
 }
-
 ---
 
-<Layout  title="panel de control">
+<Layout title="panel de control">
+    <div class="w-full container mx-auto mt-16 mb-24">
+        <div class="p-6 rounded-xl bg-neutral-10 dark:bg-neutral-900 border border-gray-200 dark:border-gray-700 ">
+
+            <Study client:only="preact" />
+        </div>
+    </div>
+
 
     <div class="relative">
         <!-- background -->
@@ -46,7 +54,7 @@ if ($user.get() && Astro.url.pathname == "/") {
                 </p>
                 <div class="flex w-full mt-6 justify-center">
                     <div
-                        class=" rounded-3xl border bg-gray-50 dark:border-gray-700 dark:bg-gray-800 -mx-6 sm:-mx-10 p-8 sm:p-10"
+                        class="rounded-3xl border bg-gray-50 dark:border-gray-700 dark:bg-gray-800 -mx-6 sm:-mx-10 p-8 sm:p-10"
                     >
                         <h3
                             class="text-2xl font-semibold text-gray-700 dark:text-white"
@@ -55,6 +63,7 @@ if ($user.get() && Astro.url.pathname == "/") {
                         </h3>
 
                         <form
+                        aria-label="login by SSRR "
                             action="/api/v0/auth/OAuth/provider"
                             method="post"
                             class="mt-6 flex flex-wrap sm:grid gap-6 grid-cols-2"
@@ -68,7 +77,7 @@ if ($user.get() && Astro.url.pathname == "/") {
                                     class="w-max mx-auto flex items-center justify-center space-x-4"
                                 >
                                     <img
-                                        src="images/google.svg"
+                                        src="icons/google.svg"
                                         class="w-5"
                                         alt=""
                                     />
@@ -132,7 +141,7 @@ if ($user.get() && Astro.url.pathname == "/") {
                 </div>
                 <!-- footer -->
                 <div
-                    class="flex flex-col sm:flex-row flex-wrap  pt-8 mt-16 border-t border-gray-100 dark:border-gray-700  sm:justify-between"
+                    class="flex flex-col sm:flex-row flex-wrap pt-8 mt-16 border-t border-gray-100 dark:border-gray-700 sm:justify-between"
                 >
                     <div class="text-left flex-shrink-1">
                         <h6
@@ -162,4 +171,6 @@ if ($user.get() && Astro.url.pathname == "/") {
             </div>
         </div>
     </div>
+
+
 </Layout>
