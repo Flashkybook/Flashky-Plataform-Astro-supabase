@@ -1,6 +1,6 @@
 ---
 import Layout from "@layouts/index.astro";
-import Study from "@components/ui/StudyInterface.preact";
+import Study from "@components/StudyInterface.preact";
 
 
 import {$user} from '@/lib/db/nanostores/user.store'
@@ -13,7 +13,6 @@ if ($user.get() === undefined && Astro.url.pathname !== "/") {
 
 <Layout>
     <div class="container mx-auto mt-14">
-
         <Study client:only="preact" />
     </div>
 </Layout>

@@ -2,7 +2,6 @@
 import Layout from "@/layouts/index.astro";
 import { $user } from "@/lib/db/nanostores/user.store";
 
-import Study from "@components/ui/StudyInterface.preact";
 
 if ($user.get() && Astro.url.pathname == "/") {
     return Astro.redirect("/app");
@@ -10,12 +9,14 @@ if ($user.get() && Astro.url.pathname == "/") {
 ---
 
 <Layout title="panel de control">
-    <div class="w-full container mx-auto mt-16 mb-24">
+
+    
+    <!-- <div class="w-full container mx-auto mt-16 mb-24">
         <div class="p-6 rounded-xl bg-neutral-10 dark:bg-neutral-900 border border-gray-200 dark:border-gray-700 ">
 
             <Study client:only="preact" />
         </div>
-    </div>
+    </div> -->
 
 
     <div class="relative">

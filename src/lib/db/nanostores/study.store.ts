@@ -30,7 +30,7 @@ interface StudySession {
 const InitialState = {
     current: {
         index: 0,
-        incorrect: false,
+        correct: true,
         error_message: ""
     },
     flashcards: {
