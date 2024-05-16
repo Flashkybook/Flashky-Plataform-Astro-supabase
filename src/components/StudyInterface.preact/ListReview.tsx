@@ -1,12 +1,25 @@
 import { $session } from "@lib/db/nanostores/study.store";
 import { useEffect, useState } from "preact/hooks";
-
+import { type SuperMemoItem, type SuperMemoGrade, supermemo } from "supermemo";
+import practice from "./practice";
+import dayjs from 'dayjs';
 
 export default function ListReview() {
 
     const [update, setUpdate] = useState(false);
 
-    console.log($session.get().flashcards.finished)
+
+
+
+    let flashcard = practice($session.get().flashcards.finished[0]);
+    console.log(flashcard);
+
+    flashcard = practice(flashcard);
+    console.log(flashcard);
+
+    flashcard = practice(flashcard);
+    console.log(flashcard);
+
 
 
 
@@ -27,10 +40,12 @@ export default function ListReview() {
                                     <p class="tracking-[.03125em] underline">{v.expression_name}</p>
                                     <span class="text-sm tracking-[0.25px]">next review: {v.next_review}</span>
                                 </div>
-                    
-                                <span class="text-[11px] leading-4 tracking-[.045em] font-medium">{v.repeats}</span>
+                                <div class={"flex flex-col"}>
+                                    {v.fails > 0 ? <span class="text-[11px] leading-4 tracking-[.045em] font-medium">fails: {v.fails} </span> :
+                                        <span class="text-[11px] leading-4 tracking-[.045em] font-medium">racha: {v.repetition} dias</span>
+                                    }
+                                </div>
 
-                                <span class="text-[11px] leading-4 tracking-[.045em] font-medium">{v.score}</span>
                             </div>
                         </li>
                     ))}

@@ -1,5 +1,6 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
+import type { SuperMemoItem } from "supermemo";
 
 
 // declare module '@/*'
@@ -53,15 +54,20 @@ export interface SPB_UserBook {
 }
 
 
-export interface SPB_FlashCard {
+export interface SPB_FlashCard   {
   id: number,
   created_at: string,
   user_book_id: 23,
-  last_review: string,
-  next_review: string,
-  repeats: number,
-  score: number,
+
   expression_id: number,
   expression_name: string,
   user_own_id: string
+
+  fails: number,
+
+  interval: number,
+  repetition: number,
+  efactor: number,
+  last_review: string,
+  next_review: string,
 }

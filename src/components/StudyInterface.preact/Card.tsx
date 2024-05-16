@@ -9,8 +9,8 @@ import { $session, newSession } from "@lib/db/nanostores/study.store";
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
 const Card = () => {
     const session = useStore($session)
+    
     const current_card: SPB_FlashCard = session.flashcards.list[session.current.index]
-
 
 
 
@@ -53,7 +53,7 @@ const Card = () => {
             }
 
         } else {
-            if(session.flashcards.list[session.current.index].repeats < 5){session.flashcards.list[session.current.index].repeats += 1
+            if(session.flashcards.list[session.current.index].fails < 5){session.flashcards.list[session.current.index].fails += 1
             }
 
             if (session.current.index >= session.flashcards.list.length - 1) {                
@@ -86,7 +86,7 @@ const Card = () => {
             session.current.correct = false
         }
 
-        // e.currentTarget.reset()
+        e.currentTarget.reset()
 
     }
 
