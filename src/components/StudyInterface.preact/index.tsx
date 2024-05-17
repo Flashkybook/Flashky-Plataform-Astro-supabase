@@ -1,9 +1,10 @@
 
 
-import { $session, newSession } from "@lib/db/nanostores/study.store";
+import { $session, newSession } from "@lib/db/session.store";
 import Card from "./Card";
 import ListReview from "./ListReview";
 import { useEffect } from "preact/hooks";
+import { useStore } from '@nanostores/preact'
 
 /**
 * @TODO: 
@@ -21,14 +22,13 @@ import { useEffect } from "preact/hooks";
  * @returns carrusel of cards*/
 export default function Study() {
 
-
+    const session = useStore($session)
 
     useEffect(() => {
-
-        if ($session.get().flashcards.list.length < 1) {
+        console.log(session.flashcards)
+        if (session.flashcards.list.length < 1) {
             newSession()
         }
-
     }, [$session])
     return (
         <div >
@@ -39,7 +39,7 @@ export default function Study() {
             </div>
             <div class={"inline  "}>
                 <div className="flex justify-center">
-                    {$session.get().flashcards.list.length > 0 && 
+                    {session.flashcards.list.length > 0 && 
                     
                     <Card />
                     }

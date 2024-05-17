@@ -19,6 +19,7 @@ import { persistentMap } from '@nanostores/persistent'
 interface FlashcardSession {
     list: SPB_FlashCard[],
     finished: SPB_FlashCard[],
+    updated: SPB_FlashCard[] | undefined,
 }
 
 interface StudySession {
@@ -36,6 +37,7 @@ const InitialState = {
     flashcards: {
         list: [],
         finished: [],
+        updated: undefined,
     }
 }
 
@@ -45,12 +47,10 @@ export const $session = persistentMap('session', <StudySession>InitialState, {
 })
 
 
-export const newSession = () => {
-    // modificar el Current
-    console.log("newSession")
-    fetch("/api/v0/study/new_round")
+export const newSession = async() => {
+    await fetch("/api/v0/study/new_session")
         .then((res) => res.json())
         .then((res: SPB_FlashCard[]) => {
-            $session.setKey("flashcards", { list: res, finished: [] })
+            $session.setKey("flashcards", {...InitialState.flashcards, list: res})
         });
 }

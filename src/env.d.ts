@@ -53,7 +53,12 @@ export interface SPB_UserBook {
   name: string
 }
 
-
+/**
+ * Flashcard
+ * @param repetition number of repetitions in this days of streak
+ * @param efactor number that represents the easiness factor
+ * @param interval number that represents next day of review
+ */
 export interface SPB_FlashCard   {
   id: number,
   created_at: string,

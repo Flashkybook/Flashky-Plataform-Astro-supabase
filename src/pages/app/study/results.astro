@@ -2,7 +2,7 @@
 import Layout from "@layouts/index.astro";
 
 import ListReview from "@components/StudyInterface.preact/ListReview";
-import {$user} from '@/lib/db/nanostores/user.store'
+import {$user} from '@lib/db/user.store'
 
 if ($user.get() === undefined && Astro.url.pathname !== "/") {
     return Astro.redirect("/");

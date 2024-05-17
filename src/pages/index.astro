@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/index.astro";
-import { $user } from "@/lib/db/nanostores/user.store";
+import { $user } from "@lib/db/user.store";
 
 
 if ($user.get() && Astro.url.pathname == "/") {

@@ -18,3 +18,10 @@
       - [ ] Ultimo estudio
       - [ ] Proximo estudio
       - [ ] repetitions
+
+
+Formatear tablas
+- [ ] delete from flash cards
+  - [ ] fails
+  - [ ] expression name
+  - [ ] user id

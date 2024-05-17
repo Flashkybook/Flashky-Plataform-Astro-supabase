@@ -4,10 +4,10 @@ import type { SPB_FlashCard } from "@env";
 import { useStore } from '@nanostores/preact'
 import type { JSXInternal } from "node_modules/preact/src/jsx";
 import { useEffect, useState } from "preact/hooks";
-import { $session, newSession } from "@lib/db/nanostores/study.store";
+import { $session, newSession } from "@lib/db/session.store";
 
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
-const Card = () => {
+function Card () {
     const session = useStore($session)
     
     const current_card: SPB_FlashCard = session.flashcards.list[session.current.index]
@@ -39,7 +39,8 @@ const Card = () => {
             $session.set({
                 flashcards: {
                     list: session.flashcards.list,
-                    finished: session.flashcards.finished
+                    finished: session.flashcards.finished,
+                    updated: undefined
                 },
                 current: {
                     index: session.current.index,

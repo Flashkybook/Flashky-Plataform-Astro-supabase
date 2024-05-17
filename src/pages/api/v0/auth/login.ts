@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from "@lib/supabase";
-import { $user } from "@lib/db/nanostores/user.store";
+import { $user } from "@lib/db/user.store";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
