@@ -14,7 +14,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: provider as Provider,
             options: {
-                redirectTo: "http://localhost:4321/api/v0/auth/OAuth",
+                redirectTo: "/api/v0/auth/OAuth",
             },
         });
 
