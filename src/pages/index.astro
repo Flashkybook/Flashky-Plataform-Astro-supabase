@@ -6,6 +6,8 @@ import { $user } from "@lib/db/user.store";
 if ($user.get() && Astro.url.pathname == "/") {
     return Astro.redirect("/app");
 }
+
+console.log($user.get())
 ---
 
 <Layout title="panel de control">

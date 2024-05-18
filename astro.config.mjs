@@ -12,6 +12,8 @@ export default defineConfig({
   devToolbar: {
     enabled: false
   },
+  site: "https://flashky.vercel.app/",
+  base: "/",
   vite: {
     plugins: [nodeResolve()],
     server: {

@@ -8,7 +8,6 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
     if (!authCode) {
         return new Response("No se proporcionó ningún código", { status: 400 });
     }
-
     const { data, error } = await supabase.auth.exchangeCodeForSession(authCode);
 
     if (error) {
@@ -38,5 +37,7 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
     $user.set({ id, user_name: user_metadata.user_name, role: role!, is_anonymous: is_anonymous ? true : false },
     );
 
+    console.log($user.get())
+    // return new Response("Provider invalido", { status: 400 });
     return redirect("/app");
-};
+};  
