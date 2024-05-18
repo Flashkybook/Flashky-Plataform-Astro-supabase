@@ -2,7 +2,6 @@
 
 import { $session, newSession } from "@lib/db/session.store";
 import Card from "./Card";
-import ListReview from "./ListReview";
 import { useEffect } from "preact/hooks";
 import { useStore } from '@nanostores/preact'
 

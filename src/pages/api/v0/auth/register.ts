@@ -6,7 +6,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
-  const provider = formData.get("provider")?.toString();
+  // const provider = formData.get("provider")?.toString();
 
 
 

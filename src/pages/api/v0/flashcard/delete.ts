@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { supabase } from "@lib/supabase";
 
 
-export const DELETE: APIRoute = async ({ params, request, cookies, redirect, url, props }) => {
+export const DELETE: APIRoute = async ({ url}) => {
 
 
     const card_id = url.searchParams.get("card_id")

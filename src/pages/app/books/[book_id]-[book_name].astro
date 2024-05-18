@@ -9,7 +9,6 @@ import BtnIcon from "@components/ui/BtnIcon.astro";
 
 const { book_id, book_name } = Astro.params;
 
-const { redirect, url } = Astro;
 const userdata = $user.get();
 
 if (userdata === undefined) {
@@ -17,7 +16,7 @@ if (userdata === undefined) {
 }
 
 //  get all card_expresion
-const { data: card_expresion, error } = await supabase
+const { data: card_expresion } = await supabase
     .from("flashcard")
     .select("*")
     .eq("user_book_id", book_id);

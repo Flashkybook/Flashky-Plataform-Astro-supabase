@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect } from "preact/hooks";
 import { $session } from "@lib/db/session.store";
 import { useStore } from '@nanostores/preact'
 import type { SPB_FlashCard } from "@env";
@@ -38,7 +38,7 @@ export default function ListReview() {
             <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">Resultados</h3>
 
             <ul class="flex flex-col">
-                {session.flashcards.updated.map((v, i) => (
+                {session.flashcards.updated.map((v) => (
 
 
                     <li class="relative">

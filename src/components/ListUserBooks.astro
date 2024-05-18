@@ -2,12 +2,11 @@
 import { supabase } from "@lib/supabase";
 import { $user } from "@lib/db/user.store";
 import type { SPB_UserBook } from "@/env";
-import AddUserbook from "./deprecated/AddUserbook.astro";
 
 // types
 import type {
     PostgrestSingleResponse,
-    PostgrestError,
+    
 } from "@supabase/supabase-js";
 type UserBook = PostgrestSingleResponse<SPB_UserBook[]>;
 
@@ -18,7 +17,8 @@ if (userdata == undefined) {
 }
 
 // supabase userbook
-const { data: userbook, error }: UserBook = await supabase
+const { data: userbook
+ }: UserBook = await supabase
     .from("user-book")
     .select("*")
     .eq("user_id", userdata.id);

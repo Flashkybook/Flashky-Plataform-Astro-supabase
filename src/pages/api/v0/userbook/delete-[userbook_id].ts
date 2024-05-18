@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { supabase } from "@lib/supabase";
 
 
-export const POST: APIRoute = async ({ params, request, cookies, redirect }) => {
+export const POST: APIRoute = async ({ params }) => {
 
     const { data, error: delete_error } = await supabase
         .from("user-book")

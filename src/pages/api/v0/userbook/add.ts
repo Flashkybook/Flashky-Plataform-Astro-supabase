@@ -1,27 +1,25 @@
 import type { APIRoute } from "astro";
 import { supabase } from "@lib/supabase";
 
-export const POST: APIRoute = async ({ request, cookies, redirect }) => {
+export const POST: APIRoute = async ({ request, redirect }) => {
 
     const formData = await request.formData();
 
     const user_book_name = formData.get("name_userbook");
     const user_id = formData.get("user_id");
-  
+
     if (user_book_name === "") {
         return redirect(`/app`);
-        throw new Error("Expression is empty");
+        // throw new Error("Expression is empty");
 
     }
     try {
-        const { data: res, error } = await supabase
-        .from("user-book")
-        .insert({
+        await supabase.from("user-book").insert({
             user_id: user_id,
             name: user_book_name,
         })
-        .select();
-     
+            .select();
+
     } catch (error) {
 
         if (error instanceof Error) {

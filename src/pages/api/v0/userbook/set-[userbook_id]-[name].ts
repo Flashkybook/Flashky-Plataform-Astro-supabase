@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { supabase } from "@lib/supabase";
 
-export const POST: APIRoute = async ({ params, request, cookies, redirect }) => {
+export const POST: APIRoute = async ({ params }) => {
     const { data, error } = await supabase
         .from('user-book')
         .update({ name: params.name })
@@ -18,7 +18,6 @@ export const POST: APIRoute = async ({ params, request, cookies, redirect }) => 
         console.log("success", data);
     }
 
-    return redirect("/app/books");
     return new Response(JSON.stringify({
         message: "Libro Actualizado" + data
     }))

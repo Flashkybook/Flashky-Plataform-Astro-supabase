@@ -13,7 +13,7 @@ export const GET: APIRoute = async ({ cookies, redirect }) => {
     return redirect("/login");
   }
 
-  const { data, error } = await supabase.auth.setSession({
+  const { error } = await supabase.auth.setSession({
     refresh_token: refreshToken.value,
     access_token: accessToken.value,
   });

@@ -3,13 +3,13 @@ import { supabase } from "@lib/supabase";
 import { $user } from '@lib/db/user.store'
 
 // http://localhost:4321/api/v0/study/new_round
-export const GET: APIRoute = async ({ cookies, locals, redirect }) => {
+export const GET: APIRoute = async () => {
     // TODO: add query for book and type of session
     const user_data = $user.get();
 
 
     if (!user_data) {
-        const { data: flashcards, error } = await supabase
+        const { data: flashcards } = await supabase
             .from("flashcard")
             .select("*")
             .range(0, 0)
@@ -27,7 +27,7 @@ export const GET: APIRoute = async ({ cookies, locals, redirect }) => {
     if (!error && flashcards.length < 1) {
         // random list
         // CREATE VIEW random_flashcard AS SELECT * FROM flashcard ORDER BY RANDOM() LIMIT 1;
-        const { data: flashcards, error } = await supabase
+        const { data: flashcards } = await supabase
             .from("random_flashcard")
             .select("*")
             .eq("user_own_id", user_data.id)

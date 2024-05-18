@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { supabase } from "@lib/supabase";
 import practice from "@/lib/practice";
 import type { SPB_FlashCard } from "@env";
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
     const body = await request.json();
 
     const updatedList = body.session.map((flashcard: SPB_FlashCard) => practice(flashcard))

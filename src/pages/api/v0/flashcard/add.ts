@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { supabase } from "@lib/supabase";
 
-export const POST: APIRoute = async ({ request, cookies, redirect }) => {
+export const POST: APIRoute = async ({ request, redirect }) => {
     const formData = await request.formData();
     const expression = formData.get("expression")?.toString().toLocaleLowerCase();
     const user_book_id = formData.get("user_book_id");
@@ -46,7 +46,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
         }
 
 
-        const { data: new_card, error } = await supabase
+        const {  error } = await supabase
             .from("flashcard")
             .insert({
                 user_book_id: user_book_id,
