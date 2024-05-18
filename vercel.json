@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+      {
+        "source": "/tts",
+        "destination": "https://tts-api-96an.onrender.com"
+      }
+    ]
+  }

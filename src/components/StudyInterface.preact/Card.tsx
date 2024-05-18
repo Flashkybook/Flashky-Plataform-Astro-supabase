@@ -16,14 +16,14 @@ function Card() {
 
 
 
-    const audioURL = window.location.origin + `/tts?expression=` +
+    const audioURL = "https://tts-api-96an.onrender.com/tts/?expression=" +
         encodeURIComponent(current_card?.expression_name)
     const audio_data = new Audio(audioURL)
 
     const playSound = () => {
         const input = document.querySelector("input[aria-label='answer']") as HTMLInputElement
         input.focus()
-        console.log(input)
+ 
         audio_data.currentTime = 0
         setLoadAudio(true)
         setTimeout(() => {
