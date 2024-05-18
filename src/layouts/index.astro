@@ -47,12 +47,20 @@ export interface Props {
 			// Whenever the user explicitly chooses to respect the OS preference
 			localStorage.removeItem("theme");
 		</script>
+
+		<style>
+			/* deactivate text selection */
+			*:not(input) {
+				cursor: default;
+				caret-color: transparent;
+
+			}
+		</style>
 	</head>
 
 	<body
 		class="relative bg-gray-100 dark:bg-gray-900 dark:text-white min-h-screen flex flex-col"
 	>
-		<!-- <Protected/> -->
 		<!-- ./Sidebar -->
 		<!-- <Sidebar /> -->
 		<!-- ./Sidebar -->
