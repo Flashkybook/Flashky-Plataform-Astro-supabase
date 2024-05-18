@@ -33,7 +33,7 @@ export default function ListReview() {
 
 
 
-    return (<div class="my-16 p-6 rounded-xl bg-neutral-10 dark:bg-neutral-900 border border-gray-200 dark:border-gray-700 ">
+    return (<div class=" p-6 rounded-xl bg-neutral-10 dark:bg-neutral-900 border border-gray-200 dark:border-gray-700 ">
         <div>
             <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">Resultados</h3>
 
@@ -52,7 +52,8 @@ export default function ListReview() {
 
                                 {/* TODO Humanize date next review */}
                                 <span class="text-sm tracking-[0.25px]">
-                                    next review: {v.next_review}
+                                    next review: {new Date(v.next_review).toLocaleDateString()}
+
                                 </span>
 
                             </div>

@@ -1,7 +1,7 @@
 ---
 
 import type { SPB_UserData } from "@env";
-import Userbook from "@/components/Userbook.astro";
+import ListUserBooks from "@components/ListUserBooks.astro";
 import Layout from "@/layouts/index.astro";
 
 import {$user} from '@lib/db/user.store'
@@ -12,6 +12,6 @@ if ($user.get() === undefined && Astro.url.pathname !== "/") {
 ---
 <Layout >
     <div class="container mx-auto">
-        <Userbook  />
+        <ListUserBooks  />
     </div>
 </Layout>

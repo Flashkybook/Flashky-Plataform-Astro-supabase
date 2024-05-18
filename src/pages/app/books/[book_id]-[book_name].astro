@@ -3,8 +3,9 @@ import Layout from "@/layouts/index.astro";
 import { supabase } from "@lib/supabase";
 import SetBook from "@components/SetBook.astro";
 
-import FlashCard from "@components/FlashCardListItem.astro";
+import FlashCard from "@components/ListCard.astro";
 import { $user } from "@lib/db/user.store";
+import BtnIcon from "@components/ui/BtnIcon.astro";
 
 const { book_id, book_name } = Astro.params;
 
@@ -24,66 +25,16 @@ const { data: card_expresion, error } = await supabase
 
 <Layout>
     <div class="container mx-auto mt-14">
-        <div
-            class="flex flex-col sm:flex-row items-center justify-between gap- mb-16 mt-14"
-        >
-            <form
-                method="POST"
-                action="/api/v0/flashcard/add"
-                class="relative flex items-center ml-auto"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="w-6 h-6 absolute left-4 inset-y-0 my-auto"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                    ></path>
-                </svg>
-                <input type="hidden" name="user_book_id" value={book_id} />
-                <input type="hidden" name="user_id" value={userdata.id} />
-                <input type="hidden" name="user_book_name" value={book_name} />
-                <input
-                    required
-                    type="text"
-                    name="expression"
-                    value="uno dos"
-                    name="username"
-                    placeholder="agrega nueva expresion"
-                    class="focus:outline-none block w-full rounded-full placeholder-gray-500 bg-gray-100 dark:bg-gray-800 dark:border-gray-600 pl-12 pr-4 h-12 text-gray-600 transition duration-300 invalid:ring-2 invalid:ring-red-400 focus:ring-2 focus:ring-primary"
-                />
-                <div class="absolute right-1">
-                    <button
-                        type="submit"
-                        class="relative flex h-10 w-10 sm:w-max ml-auto items-center justify-center sm:px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
-                    >
-                        <span
-                            class="hidden relative text-base font-semibold text-white dark:text-gray-900 sm:block"
-                        >
-                            add
-                        </span>
-                    </button>
-                </div>
-            </form>
-        </div>
-
         <div class="flex">
             <div
-                class="py-4 px-6 flex gap-4 rounded-3xl text-gray-300 bg-gray-100 dark:bg-gray-800 dark:border-gray-600 transition duration-300"
+                class="flex w-full justify-between flex-row gap-4 items-center"
             >
                 <SetBook book_id={book_id} book_name={book_name} />
 
-                <button
-                    delete-book
-                    book-id={book_id}
-                    class="text-3xl font-bold text-red-700 bg-slate-300 rounded-full h-min px-4 flex items-center justify-center"
-                    >🗑
+                <div delete-book book-id={book_id} class="">
+                    <BtnIcon>
+                        <span class="material-symbols-outlined">delete</span>
+                    </BtnIcon>
 
                     <script>
                         const button = document.querySelector("[delete-book]");
@@ -98,7 +49,6 @@ const { data: card_expresion, error } = await supabase
                                 fetch(`/api/v0/userbook/delete-${book_id}`, {
                                     method: "POST",
                                 }).then((res) => {
-                                    console.info(res);
                                     if (res.status == 200) {
                                         window.location.href = "/app/books";
                                     }
@@ -106,31 +56,73 @@ const { data: card_expresion, error } = await supabase
                             }
                         });
                     </script>
-                </button>
+                </div>
             </div>
         </div>
 
-        <ul class="flex flex-col">
+        <ul class="flex flex-col gap-8 mt-16">
             {
                 card_expresion &&
                     card_expresion.map((v) => (
-                        <>
-                            <div>
-                                <li class="relative">
-                                    <div class="flex flex-row items-center gap-3 py-4 pl-4 pr-6 rounded-full  hover-icon hover:bg-secondary-100 dark:hover:bg-secondary-700 hover:bg-opacity-30 dark:hover:bg-opacity-30 [&>span]:flex">
-                                        <FlashCard
-                                            set={true}
-                                            name={v.expression_name}
-                                            userBook_id={book_id as string}
-                                            card_id={v.id}
-                                            expression_id={v.expression_id}
-                                        />
-                                    </div>
-                                </li>
-                            </div>
-                        </>
+                        <li class="shadow-md shadow-black bg-surface-100 dark:bg-surfacedark-100">
+                            <FlashCard
+                                set={true}
+                                name={v.expression_name}
+                                userBook_id={book_id as string}
+                                card_id={v.id}
+                                expression_id={v.expression_id}
+                            />
+                        </li>
                     ))
             }
+
+            <li>
+                <form method="POST" action="/api/v0/flashcard/add" class="">
+                    <input type="hidden" name="user_book_id" value={book_id} />
+                    <input type="hidden" name="user_id" value={userdata.id} />
+                    <input
+                        type="hidden"
+                        name="user_book_name"
+                        value={book_name}
+                    />
+
+                    <div class="relative z-0">
+                        <input
+                            type="text"
+                            aria-label="inputtext"
+                            required
+                            type="text"
+                            name="expression"
+                            name="username"
+                            class="w-full h-14 block leading-5 relative py-2 px-4 rounded bg-neutral-10 dark:bg-neutral-900 border focus:border-2 border-gray-500 overflow-x-auto focus:outline-none focus:border-primary-600 focus:ring-0 dark:text-gray-200 dark:border-gray-400 dark:focus:border-primary-200 peer"
+                            placeholder=" "
+                            value=""
+                        />
+
+                        <label
+                        onclick="()=>console.log(this)"
+                            for="input33"
+                            class="absolute tracking-[.03125em] text-gray-500 dark:text-gray-400 bg-neutral-10 dark:bg-transparent duration-300 transform px-1 -translate-y-7 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:left-4 peer-focus:text-primary-600 dark:peer-focus:text-primary-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7 peer-focus:bg-neutral-10 dark:peer-focus:bg-neutral-900 peer-focus:px-1 peer-invalid:text-error-600 dark:peer-invalid:text-error-200
+                            pointer-events-none
+                            "
+                            >Nueva Expression</label
+                        >
+                    </div>
+
+                    <div class="absolute right-1">
+                        <button
+                            type="submit"
+                            class="relative flex h-10 w-10 sm:w-max ml-auto items-center justify-center sm:px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
+                        >
+                            <span
+                                class="hidden relative text-base font-semibold text-white dark:text-gray-900 sm:block"
+                            >
+                                add
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </li>
         </ul>
     </div>
 </Layout>

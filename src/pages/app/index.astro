@@ -1,7 +1,7 @@
 ---
 import Layout from "@layouts/index.astro";
 
-import Userbook from "@/components/Userbook.astro";
+import Userbook from "@components/ListUserBooks.astro";
 
 import {$user} from '@lib/db/user.store'
 
@@ -16,7 +16,9 @@ if ($user.get() === undefined && Astro.url.pathname !== "/") {
     <Userbook  />
 
     <a
-      class="mt-10 block text-center bg-slate-600 px-4 py-3 text-white"
+      class="
+      w-full rounded-lg p-8 shadow-md shadow-black  flex-col gap-1  dark:bg-surfacedark-500
+      mt-10 block text-center bg-slate-200 px-4 py-3 text-white"
       href="/app/study">Estudiar</a
     >
   </div>

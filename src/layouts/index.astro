@@ -1,7 +1,9 @@
 ---
-import Navbar from "./Navbar.astro";
+import Navbar from "./navigation/Navbar.astro";
 import Sidebar from "./Sidebar.astro";
 import Protected from "./Protected.astro";
+import AppBar from "./navigation/AppBar.astro";
+// import './tailmater.css'
 
 export interface Props {
 	title?: string;
@@ -9,9 +11,6 @@ export interface Props {
 }
 
 const { title, verify } = Astro.props;
-
-
-
 ---
 
 <html lang="en" data-darkreader-scheme="dark">
@@ -26,6 +25,8 @@ const { title, verify } = Astro.props;
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
 		/>
+
+		<script src="./tailmater.js"></script>
 		<script>
 			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
 			if (
@@ -46,10 +47,12 @@ const { title, verify } = Astro.props;
 
 			// Whenever the user explicitly chooses to respect the OS preference
 			localStorage.removeItem("theme");
-		</script></head
-	>
+		</script>
+	</head>
 
-	<body class="bg-gray-100 dark:bg-gray-900 dark:text-white">
+	<body
+		class="relative bg-gray-100 dark:bg-gray-900 dark:text-white min-h-screen flex flex-col"
+	>
 		<!-- <Protected/> -->
 		<!-- ./Sidebar -->
 		<!-- <Sidebar /> -->
@@ -57,8 +60,10 @@ const { title, verify } = Astro.props;
 		<!-- <div class="mx-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]"> -->
 		<Navbar />
 
-		<div class="mx-auto w-full 2xl:container">
+		<div class="w-full px-[10%] min-h-screen py-24 z-10">
 			<slot />
 		</div>
+
+		<AppBar />
 	</body>
 </html>

@@ -4,12 +4,14 @@ import type { SPB_FlashCard } from "@env";
 import { useStore } from '@nanostores/preact'
 import type { JSXInternal } from "node_modules/preact/src/jsx";
 import { useEffect, useState } from "preact/hooks";
-import { $session, newSession } from "@lib/db/session.store";
+import { $session } from "@lib/db/session.store";
 
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
-function Card () {
+function Card() {
     const session = useStore($session)
-    
+    const [loadAudio, setLoadAudio] = useState(false)
+
+
     const current_card: SPB_FlashCard = session.flashcards.list[session.current.index]
 
 
@@ -21,11 +23,23 @@ function Card () {
     const playSound = () => {
         const input = document.querySelector("input[aria-label='answer']") as HTMLInputElement
         input.focus()
+        console.log(input)
         audio_data.currentTime = 0
+        setLoadAudio(true)
         setTimeout(() => {
             audio_data.play()
-        }, 250);
+            setLoadAudio(false)
+
+        }, 500);
     }
+    useEffect(() => {
+        playSound()
+
+        if(session.flashcards.list[session.current.index] == undefined) {
+            $session.setKey("current", {...session.current, index: 0})
+            session.current.index = 0
+        }   
+    }, [session])
 
 
 
@@ -54,10 +68,11 @@ function Card () {
             }
 
         } else {
-            if(session.flashcards.list[session.current.index].fails < 5){session.flashcards.list[session.current.index].fails += 1
+            if (session.flashcards.list[session.current.index].fails < 5) {
+                session.flashcards.list[session.current.index].fails += 1
             }
 
-            if (session.current.index >= session.flashcards.list.length - 1) {                
+            if (session.current.index >= session.flashcards.list.length - 1) {
                 console.log("vuelve a iniciar")
                 $session.setKey("current", {
                     index: 0,
@@ -78,40 +93,57 @@ function Card () {
     const handleSubmit = (e: JSXInternal.TargetedSubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
         const answer = e.currentTarget.getElementsByTagName("input")[0].value
-
         // analyze answer correct or incorrect
         if (answer == current_card.expression_name) {
             nextCurrent()
         } else {
             "first time incorrect in this round"
             session.current.correct = false
+            playSound()
         }
-
         e.currentTarget.reset()
 
     }
 
-
-
     return (
 
-        <div class={"text-center flex flex-col justify-center p-8 bg-slate-700 rounded-3xl gap-y-6"}>
+        <div class={"w-full md:w-2/3 text-center flex flex-col justify-center shadow-md shadow-black bg-surface-100 dark:bg-surfacedark-100 p-[10%] "}>
+            <div class={"relative"}>
+                <div class={"absolute top-1/2 left-1/2 translate-x-3 -translate-y-1/2 scale-50"}>
 
-            <button onClick={() => playSound()}>
-                <span class="material-symbols-outlined">
-                    volume_up
-                </span>
-            </button>
 
-            {current_card.expression_name}
-            {!session.current.correct &&
+                </div>
+
+                <button onClick={() => playSound()}>
+                    {loadAudio ?
+                        <span class="material-symbols-outlined animate-spin">
+                            sync
+                        </span>
+                        :
+                        <span class="material-symbols-outlined">
+                            volume_up
+                        </span>
+                    }
+                </button>
+            </div>
+
+            {session.current.correct == false &&
                 <span class="text-red-500">
                     {current_card.expression_name}
                 </span>
             }
 
             <form onSubmit={e => handleSubmit(e)}>
-                <input aria-label={"answer"} type="text" placeholder={"answer"} class={"w-full outline-none rounded-sm border-green-500 bg-slate-900 px-4"} name={"answer"} />
+
+                <input
+                    aria-label={"answer"}
+                    type="text"
+                    placeholder={"answer"}
+                    name={"answer"}
+                    autofocus={true}
+                    autocomplete={"off"}
+                    class={"text-center border-b border-blue-50 outline-none bg-transparent py-2 mt-4 w-full"}
+                />
             </form>
 
         </div>

@@ -25,30 +25,42 @@ export default function Study() {
     const session = useStore($session)
 
     useEffect(() => {
-        console.log(session.flashcards)
         if (session.flashcards.list.length < 1) {
             newSession()
         }
     }, [$session])
     return (
-        <div >
-            <div class={"flex justify-between"}>
-                <h1 class={"text-3xl font-bold mb-10"}>carrusel expressions</h1>
+        <div class="flex sm:flex-col flex-col-reverse">
 
-                <button onClick={newSession} class={"rounded-full bg-sky-500 dark:bg-sky-400 h-11 flex items-center justify-center px-6 py-3 transition hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800"}>Nueva session</button>
+            <div className="flex justify-between flex-col gap-2 sm:flex-row">
+
+                <a href={"/app"} class="btn-tonal relative flex flex-row items-center justify-center gap-x-2 py-1.5 px-4 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-secondary-100 text-primary-900 dark:bg-secondary-700 dark:text-secondary-100">
+                    <span class="material-symbols-outlined">
+                        arrow_back_ios
+                    </span>
+                    volver
+                </a>
+
+                <button onClick={newSession} class="btn-tonal relative flex flex-row items-center justify-center gap-x-2 py-1.5 px-4 rounded-[6.25rem] text-sm tracking-[.00714em] font-medium hover:shadow bg-secondary-100 text-primary-900 dark:bg-secondary-700 dark:text-secondary-100">
+                    <span class="material-symbols-outlined">
+                        info
+                    </span>
+                    Nueva session
+                </button>
+
             </div>
-            <div class={"inline  "}>
-                <div className="flex justify-center">
-                    {session.flashcards.list.length > 0 && 
-                    
-                    <Card />
-                    }
-                </div>
 
+            <div className="flex justify-around  items-center py-24">
+                {session.flashcards.list.length > 0 &&
+                    <Card />
+                }
             </div>
 
 
         </div>
+
+
+
     );
 }
 

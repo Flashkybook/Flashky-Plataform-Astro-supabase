@@ -9,8 +9,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     for (let i = 0; i < updatedList.length; i++) {
         const element = updatedList[i];
-
-        if (element.last_review != new Date().toISOString()) {
+        if (new Date(element.last_review).toLocaleDateString() != new Date().toLocaleDateString()) {
+            console.log("datos actualizados en la base de datos")
             await supabase
                 .from('flashcard')
                 .update(
@@ -20,7 +20,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
                         repetition: element.repetition,
                         interval: element.interval,
                         efactor: element.efactor,
-
                     }
                 )
                 .eq('id', element.id)

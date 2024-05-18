@@ -2,30 +2,23 @@
 const { book_id, book_name } = Astro.props;
 ---
 
+<div class="flex items-center gap-4">
+    <span class="material-symbols-outlined">book</span>
 
-<button
-    type="submit"
-    class="text-2xl font-bold rounded-full h-min px-4 flex items-center justify-center"
-    >✒</button
->
+    <h1
+        user-book-title
+        user-book-id={book_id}
+        contenteditable="true"
+        class="outline-none bg-transparent text-3xl font-bold"
+    >
+        {book_name}
+    </h1>
+</div>
 
-<h1
-    user-book-title
-    user-book-id={book_id}
-    contenteditable="true"
-    class="outline-none bg-transparent text-3xl font-bold"
->
-{book_name}
-
-</h1>
-
-
-
-<script >
-    const input = document.querySelector("[user-book-title]")
-    const book_id = input?.getAttribute("user-book-id")
-    const handle =  (e: KeyboardEvent) => {
-
+<script>
+    const input = document.querySelector("[user-book-title]");
+    const book_id = input?.getAttribute("user-book-id");
+    const handle = (e: KeyboardEvent) => {
         if (e.key === "Enter") {
             e.preventDefault();
 
@@ -35,19 +28,22 @@ const { book_id, book_name } = Astro.props;
                     "Content-Type": "application/json",
                 },
                 // body: JSON.stringify({ name: input?.innerHTML, id: userbook_id }),
-            }).then((response) => {
-                if (response.status === 200) {
-                    return window.location.href = `/app/books/`
-                }else{
-                    console.log(response)
-                }
-                
-            }).catch((error) => {
-                console.error("Error:", error);
-            });
-
+            })
+                .then((response) => {
+                    if (response.status === 200) {
+                        return (window.location.href = `/app/books/`);
+                    } else {
+                        console.log(response);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
         }
     };
-    
-    input?.addEventListener('keypress', handle as EventListenerOrEventListenerObject)
+
+    input?.addEventListener(
+        "keypress",
+        handle as EventListenerOrEventListenerObject,
+    );
 </script>

@@ -11,6 +11,9 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 export default defineConfig({
   output: "server",
   integrations: [tailwind(), preact()],
+  devToolbar: {
+    enabled: false
+  },
   vite: {
     plugins: [nodeResolve()],
     server: {
