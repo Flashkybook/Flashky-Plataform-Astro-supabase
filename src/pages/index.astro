@@ -1,27 +1,15 @@
 ---
 import Layout from "@/layouts/index.astro";
 import { $user } from "@lib/db/user.store";
+import { saveUser } from "@lib/db/user.controller";
 
 if ($user.get() && Astro.url.pathname == "/") {
     return Astro.redirect("/app");
 }
-let url = Astro.url;
-const getURL = () => {
-    let host_url =
-        import.meta.env.SITE_URL ?? // Automatically set by Vercel.
-        url.origin;
-    // Make sure to include `https://` when not localhost.
-    host_url = host_url.includes("http") ? host_url : `https://${host_url}`;
-    // Make sure to include a trailing `/`.
-    host_url =
-        host_url.charAt(host_url.length - 1) === "/"
-            ? host_url
-            : `${host_url}/`;
-    return host_url;
-};
 
-console.log(import.meta.env.SITE_URL);
-console.log(getURL());
+if (Astro.url.searchParams.get("code")) {
+    return saveUser(Astro);
+}
 ---
 
 <Layout title="panel de control">

@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request, redirect, url }) => {
 
     const getURL = () => {
         let host_url =
-            import.meta.env.SITE_URL ?? // Automatically set by Vercel.
+            import.meta?.env?.SITE_URL ?? // Automatically set by Vercel.
             url.origin
         // Make sure to include `https://` when not localhost.
         host_url = host_url.includes('http') ? host_url : `https://${host_url}`
@@ -25,26 +25,26 @@ export const POST: APIRoute = async ({ request, redirect, url }) => {
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: provider as Provider,
             options: {
-                redirectTo: getURL() + "api/v0/auth/OAuth",
-            },
+                redirectTo: getURL() + "/api/v0/auth/OAuth",
+            }
+            
         });
 
         if (error) {
             return new Response(error.message, { status: 500 });
         }
-        console.log(getURL())
-        console.log(data.url)
-        return new Response(JSON.stringify(
-            { 
-                url_provider: data.url,
-                env_url: import.meta.env.SITE_URL,
-                host_url: getURL(),
-                url_astro: url.origin
+      
+        // return new Response(JSON.stringify(
+        //     { 
+        //         url_provider: data.url,
+        //         env_url: import.meta?.env?.SITE_URL,
+        //         host_url: getURL(),
+        //         url_astro: new URL(url.origin)
             
-            },null,2)
-            , { status: 200 });
-        
-        // return redirect(data.url);
+        //     },null,3)
+        //     , { status: 200 });
+ 
+        return redirect( data.url);
     } else {
         return new Response("Provider invalido", { status: 400 });
     }

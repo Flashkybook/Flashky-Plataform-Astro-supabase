@@ -24,7 +24,7 @@ export interface SPB_UserData {
   id: string
   user_name: string
   role: string
-  is_anonymous: boolean
+  is_anonymous: boolean | undefined
 }
 
 export interface UserMetadata {
