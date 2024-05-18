@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request, redirect, url }) => {
 
     const getURL = () => {
         let host_url =
-            import.meta?.env?.SITE_URL ?? // Automatically set by Vercel.
+            import.meta.env.SITE_URL ?? // Automatically set by Vercel.
             url.origin
         // Make sure to include `https://` when not localhost.
         host_url = host_url.includes('http') ? host_url : `https://${host_url}`
@@ -32,11 +32,19 @@ export const POST: APIRoute = async ({ request, redirect, url }) => {
         if (error) {
             return new Response(error.message, { status: 500 });
         }
-        // console.log(getURL())
-        // console.log(data.url)
-        // return new Response(`${data.url}`, { status: 200 });
-
-        return redirect(data.url);
+        console.log(getURL())
+        console.log(data.url)
+        return new Response(JSON.stringify(
+            { 
+                url_provider: data.url,
+                env_url: import.meta.env.SITE_URL,
+                host_url: getURL(),
+                url_astro: url.origin
+            
+            },null,2)
+            , { status: 200 });
+        
+        // return redirect(data.url);
     } else {
         return new Response("Provider invalido", { status: 400 });
     }
