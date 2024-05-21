@@ -29,7 +29,7 @@ export default function Study() {
         }
     }, [$session])
     return (
-        <div class="flex sm:flex-col flex-col-reverse">
+        <div class="flex sm:flex-col flex-col-reverse h-[80vh] justify-around">
 
             <div className="flex justify-between flex-col gap-2 sm:flex-row">
 
@@ -49,7 +49,7 @@ export default function Study() {
 
             </div>
 
-            <div className="flex justify-around  items-center py-24">
+            <div className="flex justify-around  items-center ">
                 {session.flashcards.list.length > 0 &&
                     <Card />
                 }

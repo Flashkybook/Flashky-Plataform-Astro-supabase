@@ -3,6 +3,8 @@
         "astrojs",
         "dayjs",
         "efactor",
-        "supermemo"
+        "nanostores",
+        "supermemo",
+        "tailwindcss"
     ]
 }

@@ -1,9 +1,13 @@
 import type { APIRoute } from "astro";
 import { supabase } from "@lib/supabase";
+import text_formatter from "@/utils/text_formatter";
 
 export const POST: APIRoute = async ({ request, redirect }) => {
     const formData = await request.formData();
-    const expression = formData.get("expression")?.toString().toLocaleLowerCase();
+    if(!formData.get("expression")) {
+        return new Response(JSON.stringify({ message: "Expression is empty" }))
+    }
+    const expression =  text_formatter(formData.get("expression") as string)
     const user_book_id = formData.get("user_book_id");
     const user_book_name = formData.get("user_book_name");
     const user_id = formData.get("user_id");

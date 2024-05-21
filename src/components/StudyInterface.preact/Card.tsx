@@ -5,6 +5,7 @@ import { useStore } from '@nanostores/preact'
 import type { JSXInternal } from "node_modules/preact/src/jsx";
 import { useEffect, useState } from "preact/hooks";
 import { $session } from "@lib/db/session.store";
+import text_formatter from "@/utils/text_formatter";
 
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
 function Card() {
@@ -14,8 +15,6 @@ function Card() {
 
     const current_card: SPB_FlashCard = session.flashcards.list[session.current.index]
 
-
-
     const audioURL = "https://tts-api-96an.onrender.com/tts/?expression=" +
         encodeURIComponent(current_card?.expression_name)
     const audio_data = new Audio(audioURL)
@@ -23,7 +22,7 @@ function Card() {
     const playSound = () => {
         const input = document.querySelector("input[aria-label='answer']") as HTMLInputElement
         input.focus()
- 
+
         audio_data.currentTime = 0
         setLoadAudio(true)
         setTimeout(() => {
@@ -35,10 +34,10 @@ function Card() {
     useEffect(() => {
         playSound()
 
-        if(session.flashcards.list[session.current.index] == undefined) {
-            $session.setKey("current", {...session.current, index: 0})
+        if (session.flashcards.list[session.current.index] == undefined) {
+            $session.setKey("current", { ...session.current, index: 0 })
             session.current.index = 0
-        }   
+        }
     }, [session])
 
 
@@ -94,7 +93,7 @@ function Card() {
         e.preventDefault()
         const answer = e.currentTarget.getElementsByTagName("input")[0].value
         // analyze answer correct or incorrect
-        if (answer == current_card.expression_name) {
+        if (text_formatter(answer) == text_formatter(current_card.expression_name)) {
             nextCurrent()
         } else {
             "first time incorrect in this round"
@@ -116,35 +115,38 @@ function Card() {
 
                 <button onClick={() => playSound()}>
                     {loadAudio ?
-                        <span class="material-symbols-outlined animate-spin">
+                        <span class="material-symbols-outlined animate-spin text-7xl">
                             sync
                         </span>
                         :
-                        <span class="material-symbols-outlined">
+                        <span class="material-symbols-outlined text-7xl">
                             volume_up
                         </span>
                     }
                 </button>
             </div>
+            <div className="text-3xl">
 
-            {session.current.correct == false &&
-                <span class="text-red-500">
-                    {current_card.expression_name}
-                </span>
-            }
+                {session.current.correct == false &&
+                    <span class="text-red-500">
+                        {current_card.expression_name}
+                    </span>
+                }
 
-            <form onSubmit={e => handleSubmit(e)}>
+                <form onSubmit={e => handleSubmit(e)}>
 
-                <input
-                    aria-label={"answer"}
-                    type="text"
-                    placeholder={"answer"}
-                    name={"answer"}
-                    autofocus={true}
-                    autocomplete={"off"}
-                    class={"text-center border-b border-blue-50 outline-none bg-transparent py-2 mt-4 w-full"}
-                />
-            </form>
+                    <input
+                        style={{ caretColor: "white" }}
+                        aria-label={"answer"}
+                        type="text"
+                        placeholder={"answer"}
+                        name={"answer"}
+                        autofocus={true}
+                        autocomplete={"off"}
+                        class={"text-center border-b border-blue-50 outline-none bg-transparent py-2 mt-4 w-full"}
+                    />
+                </form>
+            </div>
 
         </div>
     )

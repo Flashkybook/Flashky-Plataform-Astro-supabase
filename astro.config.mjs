@@ -15,7 +15,9 @@ export default defineConfig({
   site: "https://flashky.vercel.app/",
   base: "/",
   vite: {
-    plugins: [nodeResolve()],
+    plugins: [
+      // nodeResolve()
+    ],
     server: {
       proxy: {
         '/tts': {

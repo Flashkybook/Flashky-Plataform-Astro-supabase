@@ -3,22 +3,37 @@ import Layout from "@layouts/index.astro";
 
 import Userbook from "@components/ListUserBooks.astro";
 
-import {$user} from '@lib/db/user.store'
+import { $user } from "@lib/db/user.store";
 
 if ($user.get() === undefined && Astro.url.pathname !== "/") {
-    return Astro.redirect("/");
+  return Astro.redirect("/");
 }
-
 
 ---
 
 <Layout>
   <div class="container mx-auto mt-14">
-    <Userbook  />
+    <!-- <script>
+      import { $user } from "@lib/db/user.store";
 
+      if ($user.get() === undefined) {
+        fetch("/api/v0/auth/verify", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json()
+          )
+          .then((data) => {
+            $user.set(data.user)
+          });
+      }
+    </script> -->
+
+    <Userbook />
     <a
-      class="
-      w-full rounded-lg p-8 shadow-md shadow-black  flex-col gap-1  dark:bg-surfacedark-500
+      class="w-full rounded-lg p-8 shadow-md shadow-black flex-col gap-1 dark:bg-surfacedark-500
       mt-10 block text-center bg-slate-200 px-4 py-3 text-white"
       href="/app/study">Estudiar</a
     >

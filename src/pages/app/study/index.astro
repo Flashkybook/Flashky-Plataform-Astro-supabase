@@ -12,7 +12,5 @@ if ($user.get() === undefined && Astro.url.pathname !== "/") {
 ---
 
 <Layout>
-    <div class="mx-auto min-h-full" >
         <Study client:only="preact" />
-    </div>
 </Layout>
