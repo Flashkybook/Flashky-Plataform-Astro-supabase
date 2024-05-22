@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import tailwind from "@astrojs/tailwind";
 import preact from "@astrojs/preact";
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+
 
 import vercel from "@astrojs/vercel/serverless";
 
