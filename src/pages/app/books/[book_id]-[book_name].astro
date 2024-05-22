@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/index.astro";
 import { supabase } from "@lib/supabase";
-import SetBook from "@components/SetBook.astro";
+import SetBook from "@components/SetBookName.astro";
 
 import FlashCard from "@components/ListCard.astro";
 import { $user } from "@lib/db/user.store";
@@ -16,7 +16,7 @@ if (userdata === undefined) {
 }
 
 //  get all card_expresion
-const { data: card_expresion } = await supabase
+const { data: flasCards } = await supabase
     .from("flashcard")
     .select("*")
     .eq("user_book_id", book_id);
@@ -61,8 +61,7 @@ const { data: card_expresion } = await supabase
 
         <ul class="flex flex-col gap-8 mt-16">
             {
-                card_expresion &&
-                    card_expresion.map((v) => (
+                flasCards?.map((v) => (
                         <li class="shadow-md shadow-black bg-surface-100 dark:bg-surfacedark-100">
                             <FlashCard
                                 set={true}

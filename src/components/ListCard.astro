@@ -41,7 +41,7 @@ const { set, userBook_id, name, card_id, expression_id } = Astro.props;
                         },
                     ).then((res) => {
                         if (res.status == 200) {
-                            window.location.href = `/app/books/${bookId}-${name}`;
+                            window.location.reload();
                         }
                     });
                 }

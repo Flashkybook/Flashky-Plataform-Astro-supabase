@@ -4,10 +4,7 @@ import { $user } from "@lib/db/user.store";
 import type { SPB_UserBook } from "@/env";
 
 // types
-import type {
-    PostgrestSingleResponse,
-    
-} from "@supabase/supabase-js";
+import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 type UserBook = PostgrestSingleResponse<SPB_UserBook[]>;
 
 const userdata = $user.get();
@@ -17,8 +14,7 @@ if (userdata == undefined) {
 }
 
 // supabase userbook
-const { data: userbook
- }: UserBook = await supabase
+const { data: userbook }: UserBook = await supabase
     .from("user-book")
     .select("*")
     .eq("user_id", userdata.id);
@@ -30,19 +26,15 @@ const { data: userbook
     </h3>
 </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-5 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
     {
-        userbook?.length == 0 ? (
-            <h3>"no hay libros disponibles crea uno nuevo"</h3>
-        ) : (
-            userbook?.map((v) => (
-                <a href={"/app/books/" + v.id + "-" + v.name}>
-                    <div class="w-full rounded-lg p-8  shadow-md shadow-black flex flex-col gap-1 bg-surface-100 dark:bg-surfacedark-100">
-                        <h1 class="text-2xl ">{v.name}</h1>
-                    </div>
-                </a>
-            ))
-        )
+        userbook?.map((v) => (
+            <a href={"/app/books/" + v.id + "-" + v.name}>
+                <div class="w-full rounded-lg p-8  shadow-md shadow-black flex flex-col gap-1 bg-surface-100 dark:bg-surfacedark-100">
+                    <h1 class="text-2xl ">{v.name}</h1>
+                </div>
+            </a>
+        ))
     }
     <form
         action="/api/v0/userbook/add"
@@ -51,13 +43,12 @@ const { data: userbook
     >
         <input
             type="text"
-            name="name_userbook"
+            name="new_user_book"
             value=""
-            name="username"
-            id="username"
+            required
             placeholder={`+ Nuevo libro`}
             class="focus:outline-none block w-full rounded-full placeholder-gray-500 text-2xl text-gray-600 transition duration-300
-            bg-transparent"
+            bg-transparent caret-white"
         />
     </form>
 </div>

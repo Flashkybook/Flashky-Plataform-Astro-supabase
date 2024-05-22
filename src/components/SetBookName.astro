@@ -31,7 +31,7 @@ const { book_id, book_name } = Astro.props;
             })
                 .then((response) => {
                     if (response.status === 200) {
-                        return (window.location.href = `/app/books/`);
+                        return window.location.href = `/app/books/`+ book_id +`-`+ input?.innerHTML;
                     } else {
                         console.log(response);
                     }
@@ -41,6 +41,7 @@ const { book_id, book_name } = Astro.props;
                 });
         }
     };
+
 
     input?.addEventListener(
         "keypress",

@@ -50,11 +50,14 @@ export interface Props {
 
 		<style>
 			/* deactivate text selection */
-			*:not(input) {
-				cursor: default;
-				caret-color: transparent;
+			
+			
+			*[contenteditable="true"],input{
+				cursor: text;
+				caret-color: white !important;
 
 			}
+			
 		</style>
 	</head>
 
