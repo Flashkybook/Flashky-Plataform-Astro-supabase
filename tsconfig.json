@@ -20,7 +20,7 @@
         
       ],
       "@layouts/*": [
-        "src/layouts/*"
+        "src/components/layouts/*"
       ],
       "@lib/*": [
         "src/lib/*"

@@ -5,18 +5,16 @@ import Card from "./Card";
 import { useEffect, useState } from "preact/hooks";
 import { useStore } from '@nanostores/preact'
 import type { SPB_FlashCard } from "@lib/flashcard/flashcard.schema";
-import ItemListFlashcard from "../ItemListFlashcard.astro";
+import ItemListFlashcard from "@components/ItemListFlashcard.astro";
 
 
 const newSession = async () => {
-    await fetch("/api/v0/study/new_session")
+    await fetch("/api/v0/flashcard/session/new")
         .then((res) => res.json())
         .then((res: SPB_FlashCard[]) => {
+            console.log(res)
             $session.setKey("flashcards", { ...InitialState.flashcards, list: res })
-        }).then(() => {
-            window.location.reload()
         })
-
 }
 
 export default function Study() {
@@ -25,9 +23,10 @@ export default function Study() {
     const session = useStore($session)
 
     useEffect(() => {
+        console.log(session.flashcards.list, $session.get().flashcards.list)
         if (session.flashcards.list.length < 1) {
             newSession().then(() => {
-                return confirm("nueva session creada")
+                confirm("nueva session creada")
             })
         }
     }, [$session])
@@ -70,10 +69,10 @@ export default function Study() {
                     <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">test mode</span>
                 </label>
 
-                
-                
+
+
                 {testMode &&
-                
+
                     session.flashcards.list.length > 0 && session.flashcards.list.map((item) => (
 
                         <ItemListFlashcard />

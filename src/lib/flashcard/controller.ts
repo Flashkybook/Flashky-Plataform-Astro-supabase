@@ -13,6 +13,8 @@ export const newSession = async() => {
         });
 }
 
+
+// !TODO Match the filter  https://supabase.com/docs/reference/javascript/filter
 export const getFlashCards = async (userIdBook?: number) => {
   const query = supabase
     .from("flashcard")

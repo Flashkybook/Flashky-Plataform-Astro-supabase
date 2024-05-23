@@ -9,15 +9,14 @@ export const POST: APIRoute = async ({ params }) => {
         .delete()
         .eq("id", params.userbook_id);
 
-    console.log(data, delete_error)
     if (delete_error) {
         return new Response(JSON.stringify({
-            message: "problema al eliminar" + delete_error.message
+            message: "error on delete" + delete_error.message
         })
         )
     } else {
         return new Response(JSON.stringify({
-            message: "Libro Eliminado"
+            message: "book delete"
         }), { status: 200 })
     }
 

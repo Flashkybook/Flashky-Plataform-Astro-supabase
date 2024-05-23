@@ -11,7 +11,7 @@ export default function ListReview() {
         // if (!session.flashcards.updated) {
         // }
         console.log(session.flashcards)
-        fetch("/api/v0/study/results_update", {
+        fetch("/api/v0/flashcard/session/results", {
             method: "POST",
             headers: { "Content-Type": "application/json", },
             body: JSON.stringify({

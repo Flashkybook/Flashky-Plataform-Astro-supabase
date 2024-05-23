@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { supabase } from "@lib/supabase";
 import { $user } from "@lib/user/user.store";
-import  text_formatter  from "@/utils/text_formatter";
+import  text_formatter  from "@lib/utils/text_formatter";
 export const POST: APIRoute = async ({ request, redirect }) => {
     const formData = await request.formData();
     const userBookName = formData.get('new_user_book') as string;

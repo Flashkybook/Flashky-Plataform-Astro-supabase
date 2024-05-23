@@ -5,7 +5,7 @@ import { $session } from "@lib/flashcard/flashcard.store";
 import { useStore } from '@nanostores/preact'
 import type { JSXInternal } from "node_modules/preact/src/jsx";
 import { useEffect, useState } from "preact/hooks";
-import text_formatter from "@/utils/text_formatter";
+import text_formatter from "@lib/utils/text_formatter";
 
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
 function Card() {
@@ -106,12 +106,9 @@ function Card() {
 
     return (
 
-        <div class={"w-full md:w-2/3 text-center flex flex-col justify-center shadow-md shadow-black bg-surface-100 dark:bg-surfacedark-100 p-[10%] "}>
+        <div class={"w-full md:w-2/3 text-center flex flex-col justify-center shadow-md shadow-black bg-surface-100 dark:bg-surfacedark-100 p-[4%] "}>
             <div class={"relative"}>
-                <div class={"absolute top-1/2 left-1/2 translate-x-3 -translate-y-1/2 scale-50"}>
-
-
-                </div>
+                
 
                 <button onClick={() => playSound()}>
                     {loadAudio ?
@@ -127,14 +124,7 @@ function Card() {
             </div>
             <div className="text-3xl">
 
-                {session.current.correct == false &&
-                    <span class="text-red-500">
-                        {current_card.expression_name}
-                    </span>
-                }
-
                 <form onSubmit={e => handleSubmit(e)}>
-
                     <input
                         style={{ caretColor: "white" }}
                         aria-label={"answer"}
@@ -143,9 +133,15 @@ function Card() {
                         name={"answer"}
                         autofocus={true}
                         autocomplete={"off"}
-                        class={"text-center border-b border-blue-50 outline-none bg-transparent py-2 mt-4 w-full"}
+                        class={"text-ellipsis w-full text-center border-b border-blue-50 outline-none bg-transparent mt-4 pb-2 "}
                     />
                 </form>
+
+                {session.current.correct == false &&
+                    <span class="text-red-500">
+                        {current_card.expression_name}
+                    </span>
+                }
             </div>
 
         </div>
