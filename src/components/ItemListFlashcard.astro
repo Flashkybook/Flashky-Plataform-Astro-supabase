@@ -1,0 +1,61 @@
+---
+import BtnIcon from "./ui/BtnIcon.astro";
+
+const { item } = Astro.props;
+
+const isToday = (date: string) => {
+    const today = new Date().toLocaleDateString();
+    return new Date(date).toLocaleDateString() == today;
+};
+---
+
+<div>
+    <div class="w-full flex justify-between p-2 gap-6">
+        <div
+            class="w-14 h-14 flex items-center justify-center title-md font-bold dark:text-neutral-900"
+        >
+            <img src="/favicon.svg" alt="media 2" class="w-8 h-8" />
+        </div>
+        <div class="flex flex-col flex-grow">
+            <p class="tracking-[.03125em] underline">
+                {item.expression_name}
+            </p>
+            <p class="tracking-[.03125em]">
+                Today:
+                {
+                    isToday(item.last_review) ? (
+                        <span class="material-symbols-outlined text-green-600">
+                            check_circle
+                        </span>
+                    ) : (
+                        <span class="material-symbols-outlined text-red-600 ">
+                            cancel
+                        </span>
+                    )
+                }
+            </p>
+            
+        </div>
+        <div>
+           ultima:  {item.last_review}
+        </div>
+
+        <span class='text-[0.75rem] text-blue-100 text-center min-w-[5rem]'>
+            <div class='w-full md:w-full bg-gray-900 rounded-full border-2 border-black '>
+                <div
+                    class='bg-slate-600 leading-none rounded-full'
+                    style={{ width: `${item.efactor * 100 / 5}%` }}
+                > {item.efactor * 100 / 5}%
+                </div>
+            </div>
+        </span>
+
+        <div class="flex items-center justify-center">
+            <div class="delete">
+                <BtnIcon>
+                    <span class="material-symbols-outlined"> delete </span>
+                </BtnIcon>
+            </div>
+        </div>
+    </div>
+</div>

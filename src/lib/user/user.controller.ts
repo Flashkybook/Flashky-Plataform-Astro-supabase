@@ -1,5 +1,5 @@
 import { supabase } from '@lib/supabase';
-import { $user } from '@lib/db/user.store';
+import { $user } from '@lib/user/user.store';
 import type { APIContext } from 'astro'
 
 export const saveUser = async (context: APIContext) => {

@@ -1,0 +1,14 @@
+// https://github.com/nanostores/persistent
+// https://github.com/nanostores
+// https://github.com/nanostores/preact
+
+/**
+ * persistencia de datos
+ * manejo de estado de flashcards
+ * sincronía con la base de datos supabase
+ * Manejo de Nueva o rescatar la session
+ * 
+ * @round: session de estudio que persiste, guardada en local storage o base de datos
+ * * current: numero de flashcard actual, 
+ * * flashcards: flashcard_data, flashcard_try
+ */

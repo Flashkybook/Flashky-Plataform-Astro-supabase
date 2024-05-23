@@ -2,15 +2,29 @@
 import Layout from "@layouts/index.astro";
 import Study from "@components/StudyInterface.preact";
 
+import { $user } from "@lib/user/user.store";
+import type { SPB_FlashCard } from "@lib/flashcard/flashcard.schema";
+import { supabase } from "@lib/supabase";
 
-import {$user} from '@lib/db/user.store'
+const used_data = $user.get();
 
-if ($user.get() === undefined && Astro.url.pathname !== "/") {
+if (used_data === undefined && Astro.url.pathname !== "/") {
     return Astro.redirect("/");
 }
+
+
+// const { data: flashcards, error } = await supabase
+//     .from("flashcard")
+//     .select("*")
+//     .eq("user_own_id", used_data?.id)
+//     .or("last_review.is.null,last_review.lt." + new Date().toISOString())
+//     .range(0, 1);
+
 
 ---
 
 <Layout>
-        <Study client:only="preact" />
+    <Study client:only="preact" 
+    />
+    <!-- flashcards={flashcards as SPB_FlashCard[]}   -->
 </Layout>

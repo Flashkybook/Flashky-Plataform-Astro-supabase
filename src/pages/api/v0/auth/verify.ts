@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from '@lib/supabase'
-import { $user } from '@lib/db/user.store'
+import { $user } from '@lib/user/user.store'
 export const GET: APIRoute = async ({ cookies, redirect }) => {
 
   const accessToken = cookies.get("sb-access-token");

@@ -9,3 +9,16 @@ export const supabase = createClient(
     },
   },
 );
+
+// query
+
+// return a foreign data
+// const { data, error } = await supabase
+//   .from('countries')
+//   .select(`
+//     name,
+//     cities!inner (
+//       name
+//     )
+//   `)
+//   .or('country_id.eq.1,name.eq.Beijing', { referencedTable: 'cities' })

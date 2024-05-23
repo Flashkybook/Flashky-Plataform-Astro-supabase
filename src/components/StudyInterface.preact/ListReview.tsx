@@ -1,7 +1,6 @@
 import { useEffect } from "preact/hooks";
-import { $session } from "@lib/db/session.store";
+import { $session } from "@lib/flashcard/flashcard.store";
 import { useStore } from '@nanostores/preact'
-import type { SPB_FlashCard } from "@env";
 
 
 export default function ListReview() {
@@ -9,21 +8,23 @@ export default function ListReview() {
     const session = useStore($session)
 
     useEffect(() => {
-        if (!session.flashcards.updated) {
-            fetch("/api/v0/study/results_update", {
-                method: "POST",
-                headers: { "Content-Type": "application/json", },
-                body: JSON.stringify({
-                    session: session.flashcards.finished
-                })
+        // if (!session.flashcards.updated) {
+        // }
+        console.log(session.flashcards)
+        fetch("/api/v0/study/results_update", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", },
+            body: JSON.stringify({
+                session: session.flashcards.finished
             })
-                .then((res) => res.json())
-                .then((res: SPB_FlashCard[]) => {
-                    $session.setKey("flashcards", { ...session.flashcards, updated: res })
-                    session.flashcards = $session.get().flashcards
-                }
-                )
-        }
+        })
+
+        //     .then((res) => res.json())
+        //     .then((res) => {
+        //         console.log(res)
+        //     $session.setKey("flashcards", { ...session.flashcards, updated: res })
+        //     session.flashcards = $session.get().flashcards
+        // })
     }, [])
 
     if (!session.flashcards.updated) {
@@ -53,7 +54,6 @@ export default function ListReview() {
                                 {/* TODO Humanize date next review */}
                                 <span class="text-sm tracking-[0.25px]">
                                     next review: {new Date(v.next_review).toLocaleDateString()}
-
                                 </span>
 
                             </div>

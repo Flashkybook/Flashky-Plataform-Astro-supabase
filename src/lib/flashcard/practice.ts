@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { supermemo } from 'supermemo';
 import type { SuperMemoGrade } from 'supermemo';
-import type { SPB_FlashCard } from '@env'
+import type { SPB_FlashCard } from '@lib/flashcard/flashcard.schema'
 
 
 const getGradeFromFails = (flashcard: SPB_FlashCard): SuperMemoGrade => {
@@ -23,16 +23,7 @@ export default function practice(flashcard: SPB_FlashCard): SPB_FlashCard {
 
   const { interval, repetition, efactor } = supermemo(flashcard, getGradeFromFails(flashcard));
 
+  const next_review = dayjs(Date.now()).add(interval, 'day').toISOString();
+  return { ...flashcard, interval, repetition, efactor, next_review };
 
-  if (flashcard.last_review !== new Date().toISOString()) {
-    console.log("Primera repetición del dia")
-    flashcard.last_review = new Date().toISOString();
-    const next_review = dayjs(Date.now()).add(interval, 'day').toISOString();
-    return { ...flashcard, interval, repetition, efactor, next_review };
-  } else {
-    console.log("esta carta ya fue repetida hoy")
-
-    return { ...flashcard, interval, repetition };
-
-  }
 }

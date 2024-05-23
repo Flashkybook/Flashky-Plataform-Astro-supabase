@@ -1,18 +1,18 @@
 ---
 import Layout from "@layouts/index.astro";
-
 import Userbook from "@components/ListUserBooks.astro";
-
-import { $user } from "@lib/db/user.store";
+import { $user } from "@lib/user/user.store";
+import ListFlashcards from "@components/ListFlashcards.v1.astro";
 
 if ($user.get() === undefined && Astro.url.pathname !== "/") {
   return Astro.redirect("/");
 }
-
+fetch("https://tts-api-96an.onrender.com")
 ---
 
 <Layout>
   <div class="container mx-auto mt-14">
+   
     <!-- <script>
       import { $user } from "@lib/db/user.store";
 
@@ -38,4 +38,6 @@ if ($user.get() === undefined && Astro.url.pathname !== "/") {
       href="/app/study">Estudiar</a
     >
   </div>
+
+  <ListFlashcards />
 </Layout>

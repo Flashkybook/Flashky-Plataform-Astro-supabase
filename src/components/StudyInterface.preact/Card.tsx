@@ -1,10 +1,10 @@
 
 
-import type { SPB_FlashCard } from "@env";
+import type { SPB_FlashCard } from "@/lib/flashcard/flashcard.schema";
+import { $session } from "@lib/flashcard/flashcard.store";
 import { useStore } from '@nanostores/preact'
 import type { JSXInternal } from "node_modules/preact/src/jsx";
 import { useEffect, useState } from "preact/hooks";
-import { $session } from "@lib/db/session.store";
 import text_formatter from "@/utils/text_formatter";
 
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx

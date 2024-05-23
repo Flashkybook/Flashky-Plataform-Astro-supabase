@@ -4,7 +4,7 @@ import { supabase } from "@lib/supabase";
 import SetBook from "@components/SetBookName.astro";
 
 import FlashCard from "@components/ListCard.astro";
-import { $user } from "@lib/db/user.store";
+import { $user } from "@lib/user/user.store";
 import BtnIcon from "@components/ui/BtnIcon.astro";
 
 const { book_id, book_name } = Astro.params;

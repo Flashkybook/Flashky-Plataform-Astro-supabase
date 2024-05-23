@@ -1,0 +1,25 @@
+---
+import ItemListFlashcard from "./ItemListFlashcard.astro";
+import BtnIcon from "./ui/BtnIcon.astro";
+import { getFlashCards } from "@/lib/flashcard/controller";
+
+interface Props {
+    id_user_book?: number;
+}
+const { id_user_book } = Astro.props;
+const flashcards = await getFlashCards(id_user_book);
+
+
+---
+
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 my-12">
+    <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">
+        Lista de flashcards
+    </h3>
+</div>
+
+{
+    flashcards.map((item) => (
+        <ItemListFlashcard item={item} />
+    ))
+}
