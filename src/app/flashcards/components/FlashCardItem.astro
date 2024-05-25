@@ -1,8 +1,7 @@
 ---
-import BtnIcon from "@shared/ui/BtnIcon.astro";
-import type { SPB_FlashCard } from "./models/schema";
-
+import type { SPB_FlashCard } from "../models/schema";
 import isToday from '@shared/utils/isToday';
+import BtnDelete from "./BtnDelete";
 
 interface Props {
     flashcard: SPB_FlashCard;
@@ -55,11 +54,9 @@ const { flashcard } = Astro.props;
         </span>
 
         <div class="flex items-center justify-center">
-            <div class="delete">
-                <BtnIcon>
-                    <span class="material-symbols-outlined"> delete </span>
-                </BtnIcon>
-            </div>
+
+        <BtnDelete client:only="preact" flashcard={flashcard} />
+            
         </div>
     </div>
 </div>

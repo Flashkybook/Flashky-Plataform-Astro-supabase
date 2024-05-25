@@ -1,19 +1,22 @@
 ---
+import { $user } from "@app/user/model/store";
+
+
 const navigator = [
     {
         title: "home",
         icon: "home",
-        link: "/",
+        link: $user.get() ? "/app" : "/",
     },
     {
         title: "study",
         icon: "school",
-        link: "/app/study",
+        link: "/app/session",
     },
     {
         title: "books",
         icon: "book",
-        link: "/app",
+        link: "/app/books",
     },
 ];
 ---

@@ -5,5 +5,4 @@ export default (text: string) => {
         .trim()
         .toLocaleLowerCase()
         .replace(/[^a-zA-Z0-9' ]/g, '')
-
 }

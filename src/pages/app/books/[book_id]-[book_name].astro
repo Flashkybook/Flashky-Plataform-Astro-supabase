@@ -1,15 +1,20 @@
 ---
 import Layout from "@layout";
-import { supabase } from "@lib/supabase";
-import SetBook from "@components/userbook/SetBookName.astro";
+import { supabase } from "@shared/supabase";
+// import SetBook from "@components/userbook/SetBookName.astro";
 
-import FlashCard from "@components/ListCard.astro";
-import { $user } from "@lib/user/user.store";
-import BtnIcon from "@components/ui/BtnIcon.astro";
+import BtnIcon from "@shared/ui/BtnIcon.astro";
+import ListFlashcards from "@app/flashcards/components/FlashCardItem.astro";
+import SetName from "@app/userbook/components/SetName.astro";
+
+import { getUserSsr } from "@app/user/auth/controllers";
+
+const userdata = await getUserSsr(Astro);
+if (!userdata) {
+    return Astro.redirect("/");
+}
 
 const { book_id, book_name } = Astro.params;
-
-const userdata = $user.get();
 
 //  get all card_expresion
 const { data: flasCards } = await supabase
@@ -18,13 +23,13 @@ const { data: flasCards } = await supabase
     .eq("user_book_id", book_id);
 ---
 
-<Layout>
+<Layout userdata={userdata}>
     <div class="container mx-auto mt-14">
         <div class="flex">
             <div
                 class="flex w-full justify-between flex-row gap-4 items-center"
             >
-                <SetBook book_id={book_id} book_name={book_name} />
+                <SetName book_id={book_id} book_name={book_name} />
 
                 <div delete-book book-id={book_id} class="">
                     <BtnIcon>
@@ -59,13 +64,7 @@ const { data: flasCards } = await supabase
             {
                 flasCards?.map((v) => (
                     <li class="shadow-md shadow-black bg-surface-100 dark:bg-surfacedark-100">
-                        <FlashCard
-                            set={true}
-                            name={v.expression_name}
-                            userBook_id={book_id as string}
-                            card_id={v.id}
-                            expression_id={v.expression_id}
-                        />
+                        <ListFlashcards flashcard={v} />
                     </li>
                 ))
             }

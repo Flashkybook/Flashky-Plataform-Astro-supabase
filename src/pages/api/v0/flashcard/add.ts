@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
-import { supabase } from "@/share/supabase";
-import text_formatter from "@lib/utils/text_formatter";
+import { supabase } from "@shared/supabase";
+import text_formatter from "@shared/utils/text_formatter";
 
 export const POST: APIRoute = async ({ request, redirect }) => {
     const formData = await request.formData();

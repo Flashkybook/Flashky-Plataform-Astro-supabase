@@ -1,7 +1,7 @@
 ---
 import Layout from "@layout";
-import Userbook from "@app/userbook/List.astro";
-import ListFlashcards from "@app/flashcards/FlashCardItem.astro";
+import Userbook from "@app/userbook/components/List.astro";
+import ListFlashcards from "@app/flashcards/components/FlashCardItem.astro";
 
 import { getUserSsr } from "@app/user/auth/controllers";
 const userdata = await getUserSsr(Astro);

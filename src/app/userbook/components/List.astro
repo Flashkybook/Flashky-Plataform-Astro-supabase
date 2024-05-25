@@ -1,0 +1,22 @@
+---
+import { serviceGetUserBookList } from "../model/service";
+import FormAdd from "./FormAdd.astro";
+const { user_id } = Astro.props;
+const listUserBook = await serviceGetUserBookList(user_id);
+---
+
+<div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+>
+    {
+        listUserBook?.map((v) => (
+            <a href={"/app/books/" + v.id + "-" + v.name}>
+                <div class="w-full rounded-lg p-8  shadow-md shadow-black flex flex-col gap-1 bg-surface-100 dark:bg-surfacedark-100">
+                    <h1 class="text-2xl ">{v.name}</h1>
+                </div>
+            </a>
+        ))
+    }
+     <FormAdd user_id={user_id} />
+
+</div>
