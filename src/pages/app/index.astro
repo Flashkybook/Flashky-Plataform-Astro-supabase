@@ -4,9 +4,7 @@ import Userbook from "@components/ListUserBooks.astro";
 import { $user } from "@lib/user/user.store";
 import ListFlashcards from "@components/ListFlashcards.v1.astro";
 
-if ($user.get() === undefined && Astro.url.pathname !== "/") {
-  return Astro.redirect("/");
-}
+
 fetch("https://tts-api-96an.onrender.com")
 
 ---

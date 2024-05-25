@@ -2,10 +2,8 @@
 
 
 context: manejo del estado // store
-
 interceptors: middlewares, manejo de errores, 
 adapters: adaptarodes de informacion de los modelos DB a los controladores
-
 modelos y eshema: interface, tipos, 
 
 
@@ -32,3 +30,12 @@ export async function getUser(id) {
 # Controllers
 Controladores que manejan las solicitudes HTTP y utilizan los servicios para realizar operaciones específicas.
 
+
+
+# External
+
+# Adapters
+
+# Use Case
+
+# Dominio

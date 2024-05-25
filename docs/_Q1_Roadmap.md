@@ -1,3 +1,8 @@
+## Improve the UX
+
+- [ ] UserStorage need in frontend
+- [ ] Add text to speech chatgpt api
+- [ ] on fail add differences between words red and green for improve the focus
 
 
 # MVP app
@@ -36,9 +41,6 @@
 - [ ] save on finish get results
   - [ ] save next review by flashcards
 
-
-
-
 - [ ] Testing and accessibility
   - [ ] Prioridades 
     - [ ] Auth
@@ -46,7 +48,13 @@
     - [ ] Sync database
     - [ ] Refactor
 
-
+- [ ] integrate chatgpt
+  - [ ] determinate user level
+  - [ ] expression surgers
+  - [ ] icono de ¡ consulta que ayuda a pronunciar 
+    - [ ] all data that chatgpt gives must be save in the expression description field because i don't want request chatgpt always 
+  - [ ] determinate the price os chatgpt
+  - [ ] generate a chatgpt assist for this 
 
 
 # ⏱2 UI validations and testing

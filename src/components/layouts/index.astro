@@ -1,15 +1,14 @@
 ---
 import Navbar from "./navigation/Navbar.astro";
-
 import AppBar from "./navigation/AppBar.astro";
-// import './tailmater.css'
+import { $user } from "@lib/user/user.store";
 
 export interface Props {
 	title?: string;
 	verify?: boolean;
 }
+console.log($user.get())
 
-// const { title, verify } = Astro.props;
 ---
 
 <html lang="en" data-darkreader-scheme="dark">
@@ -26,32 +25,8 @@ export interface Props {
 		/>
 
 		<script src="./tailmater.js"></script>
-		<script>
-			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
-			if (
-				localStorage.theme === "dark" ||
-				(!("theme" in localStorage) &&
-					window.matchMedia("(prefers-color-scheme: dark)").matches)
-			) {
-				document.documentElement.classList.add("dark");
-			} else {
-				document.documentElement.classList.remove("dark");
-			}
-
-			// Whenever the user explicitly chooses light mode
-			localStorage.theme = "light";
-
-			// Whenever the user explicitly chooses dark mode
-			localStorage.theme = "dark";
-
-			// Whenever the user explicitly chooses to respect the OS preference
-			localStorage.removeItem("theme");
-		</script>
-
 		<style>
-			/* deactivate text selection */
-			
-			
+			/* deactivate text selection */	
 			*[contenteditable="true"],input{
 				cursor: text;
 				caret-color: white !important;

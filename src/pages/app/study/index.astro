@@ -8,9 +8,7 @@ import { supabase } from "@lib/supabase";
 
 const used_data = $user.get();
 
-if (used_data === undefined && Astro.url.pathname !== "/") {
-    return Astro.redirect("/");
-}
+
 
 
 // const { data: flashcards, error } = await supabase

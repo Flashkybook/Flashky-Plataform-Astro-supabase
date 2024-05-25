@@ -4,9 +4,6 @@ import ListUserBooks from "@components/ListUserBooks.astro";
 import Layout from "@components/layouts/index.astro";
 
 import {$user} from '@lib/user/user.store'
-if ($user.get() === undefined && Astro.url.pathname !== "/") {
-    return Astro.redirect("/");
-}
 
 ---
 <Layout >

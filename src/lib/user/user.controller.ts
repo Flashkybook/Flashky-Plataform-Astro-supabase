@@ -16,6 +16,7 @@ export const saveUser = async (context: APIContext) => {
     context.cookies.set("sb-access-token", access_token, {
         path: "/",
     });
+   
     context.cookies.set("sb-refresh-token", refresh_token, {
         path: "/",
     });
@@ -29,6 +30,8 @@ export const saveUser = async (context: APIContext) => {
 
     $user.set({ id, user_name: user_metadata.user_name, role: role!, is_anonymous: is_anonymous },
     );
+
+
 
     return context.redirect("/app");
 }

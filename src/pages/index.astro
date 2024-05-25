@@ -3,12 +3,14 @@ import Layout from "@components/layouts/index.astro";
 import { $user } from "@lib/user/user.store";
 import { saveUser } from "@lib/user/user.controller";
 
-if ($user.get() && Astro.url.pathname == "/") {
-    return Astro.redirect("/app");
-}
+
 
 if (Astro.url.searchParams.get("code")) {
     return saveUser(Astro);
+}
+if($user.get()){
+    return Astro.redirect("/app")
+
 }
 ---
 
