@@ -1,8 +1,6 @@
 import type { SPB_FlashCard } from "../models/schema";
-import { $session, InitialState } from "./model/store"
 import { supabase } from '@shared/supabase'
 import practice from "./updateFlashcard";
-import { $user } from "@app/user/model/store";
 
 
 /**
@@ -55,7 +53,7 @@ export const getFlashCardsByApi = async (user_id: string, debug:boolean|undefine
    * 4.- all flashcards last review is today => get all by random
    */
     const log_event = (message: any) => debug && console.log(message.toString().toUpperCase())
-
+    console.log("HELLO WORD")
     if (!user_id) {
         log_event("1 event no user get random flashcard")
         const { data: flashcards } = await supabase
@@ -102,8 +100,3 @@ export const getFlashCardsByApi = async (user_id: string, debug:boolean|undefine
 
 
 
-
-export const clientGetOrSaveSession = async (user_id: string | undefined) => {
-
-
-}

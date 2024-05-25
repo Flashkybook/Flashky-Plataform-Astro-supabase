@@ -3,7 +3,6 @@ import { $user } from "../model/store";
 
 
 export default function getUser({ user }: { user: SPB_UserData | undefined }) {
-    console.log(user)
     
     
     if (user && window.location.pathname == "/") {

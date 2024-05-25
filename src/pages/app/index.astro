@@ -1,7 +1,7 @@
 ---
 import Layout from "@layout";
 import Userbook from "@app/userbook/List.astro";
-import ListFlashcards from "@app/flashhcards/FlashCardItem.astro";
+import ListFlashcards from "@app/flashcards/FlashCardItem.astro";
 
 import { getUserSsr } from "@app/user/auth/controllers";
 const userdata = await getUserSsr(Astro);
@@ -9,7 +9,7 @@ if (!userdata) {
   return Astro.redirect("/");
 }
 
-import { getFlashCards } from "@app/flashhcards/controllers";
+import { getFlashCards } from "@app/flashcards/controllers";
 const flashcards = await getFlashCards({userId: userdata?.id});
 
 fetch("https://tts-api-96an.onrender.com");

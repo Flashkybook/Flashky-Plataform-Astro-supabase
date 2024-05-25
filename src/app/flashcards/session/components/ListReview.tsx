@@ -1,5 +1,5 @@
 import { useEffect } from "preact/hooks";
-import { $session } from "@lib/flashcard/flashcard.store";
+import { $session } from "@app/flashcards/session/model/store";
 import { useStore } from '@nanostores/preact'
 
 
@@ -8,20 +8,20 @@ export default function ListReview() {
     const session = useStore($session)
 
     useEffect(() => {
-        // if (!session.flashcards.updated) {
-        // }
-        console.log(session.flashcards)
-        fetch("/api/v0/flashcard/session/results", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", },
-            body: JSON.stringify({
-                session: session.flashcards.finished
+        if (!session.flashcards.updated) {
+            fetch("/api/v0/flashcard/session/results", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", },
+                body: JSON.stringify({
+                    session_finished: session.flashcards.finished
+                })
             })
-        })
+        }
 
         //     .then((res) => res.json())
         //     .then((res) => {
         //         console.log(res)
+        //     $session.setKey("flashcards", { ...session.flashcards, updated: res })
         //     session.flashcards = $session.get().flashcards
         // })
     }, [])

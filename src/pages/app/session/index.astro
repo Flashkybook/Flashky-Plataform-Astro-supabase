@@ -1,12 +1,11 @@
 ---
 import Layout from "@layout";
-import Study from "@app/flashhcards/session/components";
+import Study from "@app/flashcards/session/components";
+import { getUserSsr } from "@app/user/auth/controllers";
 
-
-
-
+const userdata = await getUserSsr(Astro);
 
 ---
-<Layout>
+<Layout userdata={userdata}>
     <Study client:only="preact" />
 </Layout>

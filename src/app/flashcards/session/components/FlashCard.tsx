@@ -1,14 +1,14 @@
 
 
-import type { SPB_FlashCard } from "@/lib/flashcard/flashcard.schema";
-import { $session } from "@lib/flashcard/flashcard.store";
+import type { SPB_FlashCard } from "../../models/schema";
+import { $session } from "../model/store";
 import { useStore } from '@nanostores/preact'
 import type { JSXInternal } from "node_modules/preact/src/jsx";
 import { useEffect, useState } from "preact/hooks";
-import text_formatter from "@lib/utils/text_formatter";
+import text_formatter from "@shared/utils/text_formatter";
 
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
-function Card() {
+export default function FlashCard() {
     const session = useStore($session)
     const [loadAudio, setLoadAudio] = useState(false)
 
@@ -148,4 +148,3 @@ function Card() {
     )
 }
 
-export default Card

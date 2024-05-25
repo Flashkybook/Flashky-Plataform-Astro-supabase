@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import type { SPB_FlashCard } from "@app/flashhcards/models/schema";
+import type { SPB_FlashCard } from "@app/flashcards/models/schema";
 
 export const POST: APIRoute = async ({ request }) => {
     const body = await request.json();
