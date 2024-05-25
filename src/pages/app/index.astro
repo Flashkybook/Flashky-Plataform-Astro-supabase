@@ -1,0 +1,34 @@
+---
+import Layout from "@layout";
+import Userbook from "@app/userbook/List.astro";
+// import ListFlashcards from "@components/ListFlashcards.v1.astro";
+
+
+fetch("https://tts-api-96an.onrender.com")
+
+import {getUserSsr} from "@app/user/auth/controllers"
+
+const userdata = await getUserSsr(Astro)
+
+console.log(userdata)
+
+---
+
+<Layout>
+  <div class="container mx-auto mt-14">
+   
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 my-12">
+      <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">
+          Lista de libros
+      </h3>
+  </div>
+    <Userbook user_id={userdata?.id} />
+    <a
+      class="w-full rounded-lg p-8 shadow-md shadow-black flex-col gap-1 dark:bg-surfacedark-500
+      mt-10 block text-center bg-slate-200 px-4 py-3 text-white"
+      href="/app/study">Estudiar</a
+    >
+  </div>
+
+  <!-- <ListFlashcards /> -->
+</Layout>

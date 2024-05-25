@@ -1,13 +1,24 @@
 ---
 import Layout from "@layout";
 import { getUserFromAuthCode } from "@app/user/auth/controllers";
+import SaveUser from "@app/user/auth/client.save_user"
+import type { SPB_UserData } from "@app/user/model/schema";
+
+let user: SPB_UserData | undefined  = undefined
 if (Astro.url.searchParams.get("code")) {
-    const user = await getUserFromAuthCode(Astro);
+    const code = Astro.url.searchParams.get("code");
+    console.log(code)
+    if(code) {
+        user = await getUserFromAuthCode(Astro);
+        // return  
+    }
 }
 ---
 
 <Layout title="panel de control">
     <div class="relative">
+
+        {user !== undefined && <SaveUser client:only="preact" user={user} /> }
         <!-- background -->
         <div
             aria-hidden="true"

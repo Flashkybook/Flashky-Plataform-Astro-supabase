@@ -6,7 +6,7 @@ import type { Provider } from "@supabase/supabase-js";
 
 
 
-export const POST: APIRoute = async ({ request, redirect, url }) => {
+export const POST: APIRoute = async ({ request }) => {
     const formData = await request.formData();
     const provider = formData.get("provider")?.toString();
     const validProviders = ["google", "github", "discord"];
