@@ -1,34 +1,46 @@
 ---
 import Layout from "@layout";
 import Userbook from "@app/userbook/List.astro";
-// import ListFlashcards from "@components/ListFlashcards.v1.astro";
+import ListFlashcards from "@app/flashhcards/FlashCardItem.astro";
 
+import { getUserSsr } from "@app/user/auth/controllers";
+const userdata = await getUserSsr(Astro);
+if (!userdata) {
+  return Astro.redirect("/");
+}
 
-fetch("https://tts-api-96an.onrender.com")
+import { getFlashCards } from "@app/flashhcards/controllers";
+const flashcards = await getFlashCards({userId: userdata?.id});
 
-import {getUserSsr} from "@app/user/auth/controllers"
-
-const userdata = await getUserSsr(Astro)
-
-console.log(userdata)
-
+fetch("https://tts-api-96an.onrender.com");
 ---
 
-<Layout>
+<Layout userdata={userdata}>
   <div class="container mx-auto mt-14">
-   
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 my-12">
+    <div
+      class="flex flex-col sm:flex-row items-center justify-between gap-4 my-12"
+    >
       <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">
-          Lista de libros
+        Lista de libros
       </h3>
-  </div>
+    </div>
     <Userbook user_id={userdata?.id} />
     <a
       class="w-full rounded-lg p-8 shadow-md shadow-black flex-col gap-1 dark:bg-surfacedark-500
       mt-10 block text-center bg-slate-200 px-4 py-3 text-white"
-      href="/app/study">Estudiar</a
+      href="/app/session">Estudiar</a
     >
   </div>
 
-  <!-- <ListFlashcards /> -->
+  <div
+    class="flex flex-col sm:flex-row items-center justify-between gap-4 my-12"
+  >
+    <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">
+      Lista de flashcards
+    </h3>
+  </div>
+
+  {flashcards?.map((flashcard) => 
+   <ListFlashcards flashcard={flashcard} />
+  )}
 </Layout>

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { supermemo } from 'supermemo';
 import type { SuperMemoGrade } from 'supermemo';
-import type { SPB_FlashCard } from '@lib/flashcard/flashcard.schema'
+import type { SPB_FlashCard } from '../models/schema';
 
 
 const getGradeFromFails = (flashcard: SPB_FlashCard): SuperMemoGrade => {
@@ -22,7 +22,6 @@ const getGradeFromFails = (flashcard: SPB_FlashCard): SuperMemoGrade => {
 export default function practice(flashcard: SPB_FlashCard): SPB_FlashCard {
 
   const { interval, repetition, efactor } = supermemo(flashcard, getGradeFromFails(flashcard));
-
   const next_review = dayjs(Date.now()).add(interval, 'day').toISOString();
   return { ...flashcard, interval, repetition, efactor, next_review };
 

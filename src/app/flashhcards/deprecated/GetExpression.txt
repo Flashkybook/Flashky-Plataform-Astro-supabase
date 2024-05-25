@@ -1,4 +1,4 @@
----
+<!-- ---
 import { supabase } from "@lib/supabase";
 
 const { expression_id } = Astro.params;
@@ -16,4 +16,4 @@ if (error) {
 
 ---
 
-<h3>{expression_data[0].name}</h3>
+<h3>{expression_data[0].name}</h3> -->

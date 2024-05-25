@@ -1,4 +1,4 @@
----
+<!-- ---
 import BtnIcon from "./ui/BtnIcon.astro";
 
 interface Props {
@@ -86,4 +86,4 @@ const { set, userBook_id, name, card_id, expression_id } = Astro.props;
             )
         }
     </div>
-</expression-card>
+</expression-card> -->

@@ -1,4 +1,4 @@
-import type { SPB_FlashCard, StudySession } from '@lib/flashcard/flashcard.schema'
+import type { StudySession } from './schema'
 import { persistentMap } from '@nanostores/persistent'
 
 
@@ -20,5 +20,6 @@ export const $session = persistentMap('session', <StudySession>InitialState, {
     encode: JSON.stringify,
     decode: JSON.parse,
 })
+
 
 

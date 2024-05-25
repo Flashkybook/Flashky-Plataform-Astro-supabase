@@ -1,11 +1,16 @@
 ---
 import Navbar from "./navigation/Navbar.astro";
 import AppBar from "./navigation/AppBar.astro";
+import type { SPB_UserData } from "@app/user/model/schema";
 
 export interface Props {
-	title?: string;
-	verify?: boolean;
+	userdata: SPB_UserData | undefined
+	// title?: string;
+	// verify?: boolean;
 }
+import SaveUser from "@app/user/auth/SaveUser.ClientComponent"
+
+const { userdata } = Astro.props
 ---
 
 <html lang="en" data-darkreader-scheme="dark">
@@ -50,16 +55,17 @@ export interface Props {
 				caret-color: white !important;
 			}
 		</style>
+
+		
 	</head>
 
-	<body
-		class="relative bg-gray-100 dark:bg-gray-900 dark:text-white min-h-screen flex flex-col"
-	>
+	<body class="relative bg-gray-100 dark:bg-gray-900 dark:text-white min-h-screen flex flex-col">
 		<!-- ./Sidebar -->
 		<!-- <Sidebar /> -->
 		<!-- ./Sidebar -->
 		<!-- <div class="mx-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]"> -->
 		<Navbar />
+		<SaveUser client:only="preact" user={userdata} /> 
 
 		<div class="w-full px-[5%] min-h-screen py-24 z-10">
 			<slot />

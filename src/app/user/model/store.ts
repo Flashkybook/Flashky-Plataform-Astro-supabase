@@ -12,7 +12,6 @@ export const $user = persistentAtom<undefined | SPB_UserData>("user", undefined,
 
 
 export const adapterResSupabaseAuth_to_store = (user: User) => {
-
   const user_data: SPB_UserData = {
     id: user.id,
     user_name: user.user_metadata?.preferred_username,

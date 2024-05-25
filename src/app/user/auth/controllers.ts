@@ -37,27 +37,23 @@ export const getUserFromAuthCode = async (context: APIContext) => {
     saveTokenSession(context.cookies, data.session)
     const user = adapterResSupabaseAuth_to_store(data.user as User)
     return user
+
 }
 
 
 export const getUserSsr = async (context: APIContext) => {
-    const accessToken = context.cookies.get("sb-access-token");
-    const refreshToken = context.cookies.get("sb-refresh-token");
-    // const expiresAt = context.cookies.get("sb-expire-token");
-    const session = { refresh_token: refreshToken?.value as string, }
-    const { data, error } = await supabase.auth.refreshSession(session);
-    if (error && data.user) {
+  
+    const { data, error } = await supabase.auth.refreshSession();
+    if (error && !data) {
         console.log(error)
-        context.cookies.delete("sb-access-token", {
-            path: "/",
-        });
-        context.cookies.delete("sb-refresh-token", {
-            path: "/",
-        });
         context.redirect("/");
-        return  undefined
-        
+        return undefined
     }
+    if (error) {
+        console.log(error)
+        return undefined
+    }
+
     const user = adapterResSupabaseAuth_to_store(data.user as User)
     return user
 

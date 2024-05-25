@@ -1,12 +1,14 @@
 ---
-import BtnIcon from "./ui/BtnIcon.astro";
+import BtnIcon from "@shared/ui/BtnIcon.astro";
+import type { SPB_FlashCard } from "./models/schema";
 
-const { item } = Astro.props;
+import isToday from '@shared/utils/isToday';
 
-const isToday = (date: string) => {
-    const today = new Date().toLocaleDateString();
-    return new Date(date).toLocaleDateString() == today;
-};
+interface Props {
+    flashcard: SPB_FlashCard;
+}
+
+const { flashcard } = Astro.props;
 ---
 
 <div>
@@ -18,12 +20,12 @@ const isToday = (date: string) => {
         </div>
         <div class="flex flex-col flex-grow">
             <p class="tracking-[.03125em] underline">
-                {item.expression_name}
+                {flashcard.expression_name}
             </p>
             <p class="tracking-[.03125em]">
                 Today:
                 {
-                    isToday(item.last_review) ? (
+                    isToday(flashcard.last_review) ? (
                         <span class="material-symbols-outlined text-green-600">
                             check_circle
                         </span>
@@ -34,18 +36,20 @@ const isToday = (date: string) => {
                     )
                 }
             </p>
-            
         </div>
         <div>
-           ultima:  {item.last_review}
+            ultima: {flashcard.last_review}
         </div>
 
-        <span class='text-[0.75rem] text-blue-100 text-center min-w-[5rem]'>
-            <div class='w-full md:w-full bg-gray-900 rounded-full border-2 border-black '>
+        <span class="text-[0.75rem] text-blue-100 text-center min-w-[5rem]">
+            <div
+                class="w-full md:w-full bg-gray-900 rounded-full border-2 border-black"
+            >
                 <div
-                    class='bg-slate-600 leading-none rounded-full'
-                    style={{ width: `${item.efactor * 100 / 5}%` }}
-                > {item.efactor * 100 / 5}%
+                    class="bg-slate-600 leading-none rounded-full"
+                    style={{ width: `${(flashcard.efactor * 100) / 5}%` }}
+                >
+                    {(flashcard.efactor * 100) / 5}%
                 </div>
             </div>
         </span>

@@ -22,15 +22,11 @@ export interface SPB_FlashCard   {
     last_review: string,
     next_review: string,
   }
+  
 export interface FlashcardSession {
     list: SPB_FlashCard[],
     finished: SPB_FlashCard[],
     updated: SPB_FlashCard[] | undefined,
 }
 
-export interface StudySession {
-    // active: boolean
-    current: any
-    flashcards: FlashcardSession
-}
 

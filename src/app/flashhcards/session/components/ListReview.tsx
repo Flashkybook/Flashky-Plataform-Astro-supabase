@@ -22,7 +22,6 @@ export default function ListReview() {
         //     .then((res) => res.json())
         //     .then((res) => {
         //         console.log(res)
-        //     $session.setKey("flashcards", { ...session.flashcards, updated: res })
         //     session.flashcards = $session.get().flashcards
         // })
     }, [])
