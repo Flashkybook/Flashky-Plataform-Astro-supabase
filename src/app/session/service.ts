@@ -1,4 +1,4 @@
-import type { SPB_FlashCard } from "../models/schema";
+import type { SPB_FlashCard } from "../flashcards/models/schema";
 import { supabase } from '@shared/supabase'
 import practice from "./updateFlashcard";
 
@@ -14,38 +14,46 @@ export const updateListApi = async (list: SPB_FlashCard[]) => {
         const updatedList = practice(flashcard)
         const query = {} as any
         let debug = true
-        const log_event = (message: any) => debug && console.log(message.toString().toUpperCase())
-        if (new Date(flashcard.next_review).toLocaleDateString() == new Date().toLocaleDateString()) {
+        const log_event = (message: any) => flashcard == list[0] && debug && console.log(message.toString().toUpperCase())
+
+        if (new Date(flashcard.next_review).toLocaleDateString() == new Date().toLocaleDateString() || flashcard.next_review == null || flashcard.last_review == null) {
             log_event("first event! update all")
             query["last_review"] = new Date().toLocaleDateString()
             query["repetition"] = updatedList.repetition
             query["next_review"] = updatedList.next_review
             query["interval"] = updatedList.interval
             query["efactor"] = updatedList.efactor
+            query["fails"] = flashcard.fails
         } else {
             log_event("third event! only update repeats")
             query["repetition"] = updatedList.repetition
             if (new Date(flashcard.last_review).toLocaleDateString() != new Date().toLocaleDateString()) {
                 log_event("second event update repeats and last review")
                 query["last_review"] = new Date().toLocaleDateString()
+                query["fails"] = flashcard.fails
             }
         }
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from('flashcard')
             .update(query)
+            // .select("*")
             .eq('id', flashcard.id)
 
+
         if (error) {
-            console.error(error)
-            return flashcard
+            console.log(error)
+            return []
         }
+        const data = { ...flashcard, ...query }
         return data
     })
 
-    return await Promise.all(newList)
+    const result = await Promise.all(newList)
+
+    return result
 }
 
-export const getFlashCardsByApi = async (user_id: string, debug:boolean|undefined) => {
+export const getFlashCardsByApi = async (user_id: string, debug: boolean | undefined) => {
     /**
    * 1.- no have user => get random flashcard and especifica number
    * 2.- flashcards next review is today
@@ -75,27 +83,27 @@ export const getFlashCardsByApi = async (user_id: string, debug:boolean|undefine
     if (second_error) {
         console.log(second_error)
         // throw { "second error": second_error }
-        return { error: second_error}
+        return { error: second_error }
     }
 
     if (data.length > 0) {
         log_event("2 y 3 next review is today and last review is not today")
-        return {data:data}
+        return { data: data }
     } else {
         const { data: flashcards, error } = await supabase
             .from("random_flashcard")
             .select("*")
             .eq("user_own_id", user_id)
             .range(0, 1)
+
         log_event("4 event get all by random")
 
         if (error) {
-            return { error: error}
-
+            return { error: error }
         }
-        return {data:data}
+        return { data: flashcards }
     }
-    
+
 }
 
 

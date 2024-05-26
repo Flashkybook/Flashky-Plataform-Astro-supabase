@@ -7,6 +7,7 @@ import { useEffect } from "preact/hooks";
 import { useStore } from '@nanostores/preact'
 import { $user } from "@app/user/model/store";
 import FlashCard from "./FlashCard";
+import type { SPB_FlashCard } from "@app/flashcards/models/schema";
 
 
 export default function Study() {
@@ -18,9 +19,8 @@ export default function Study() {
     useEffect(() => {
         if (session.flashcards.list.length == 0) {
             const user_id = $user.get()?.id
-            newSession(user_id).then((res) => {
-                const newList = res.data
-                setNewSession(newList)
+            newSession(user_id).then((res) => {                
+                setNewSession(res)
             })
         }
 
@@ -28,9 +28,8 @@ export default function Study() {
 
     const handleNewSession = () => {
         const user_id = $user.get()?.id
-        newSession(user_id).then((res) => {
-            const newList = res.data
-            setNewSession(newList)
+        newSession(user_id).then((res) => {                
+            setNewSession(res)
         })
 
     }

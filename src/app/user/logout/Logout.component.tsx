@@ -14,12 +14,12 @@ export default function Logout() {
 
         <button onClick={() => logout()}
             className={
-                "btn-outline min-w-10 min-h-10 gap-x-2  px-[15%]border border-gray-500 dark:border-gray-400 dark:text-primary-200 text-primary-600rounded-[6.25rem] relative !inline-flex items-center justify-center tracking-[.00714em] "}
+                "btn-outline min-w-10 min-h-10 gap-x-1  px-[12%] border border-gray-500 dark:border-gray-400 dark:text-primary-200 text-primary-600 rounded-[6.25rem] relative !inline-flex items-center justify-center "}
         >
+            <span class="material-symbols-outlined"> logout </span>
 
             <h2 class="hidden sm:flex">logout</h2>
 
-            <span class="material-symbols-outlined"> logout </span>
         </button>
 
 

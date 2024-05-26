@@ -1,4 +1,4 @@
-import type { FlashcardSession } from '../../models/schema'
+import type { FlashcardSession } from '@app/flashcards/models/schema'
 
 export interface StudySession {
     // active: boolean

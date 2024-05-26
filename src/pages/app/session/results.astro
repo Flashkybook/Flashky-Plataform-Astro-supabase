@@ -1,6 +1,6 @@
 ---
 import Layout from "@layout";
-
+import ListReview from "@app/session/components/ListReview";
 
 import { getUserSsr } from "@app/user/auth/controllers";
 const userdata = await getUserSsr(Astro);
@@ -14,6 +14,6 @@ const userdata = await getUserSsr(Astro);
 
             <a href={"/app/study"} class={"rounded-full bg-sky-500 dark:bg-sky-400 h-11 flex items-center justify-center px-6 py-3 transition hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800"}>Nueva session</a>
         </div>
-        <!-- <ListReview client:only="preact"/> -->
+        <ListReview client:only="preact"/>
     </div>
 </Layout>

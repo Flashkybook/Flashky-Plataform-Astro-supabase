@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { supermemo } from 'supermemo';
 import type { SuperMemoGrade } from 'supermemo';
-import type { SPB_FlashCard } from '../models/schema';
+import type { SPB_FlashCard } from '../flashcards/models/schema';
 
 
 const getGradeFromFails = (flashcard: SPB_FlashCard): SuperMemoGrade => {

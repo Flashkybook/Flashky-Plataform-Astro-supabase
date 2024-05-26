@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from "@shared/supabase";
-import { getFlashCardsByApi } from "@app/flashcards/session/service";
+import { getFlashCardsByApi } from "@app/session/service";
 // http://localhost:4321/api/v0/study/new_round
 export const POST: APIRoute = async ({ request }) => {
     const body = await request.json();
@@ -8,7 +8,8 @@ export const POST: APIRoute = async ({ request }) => {
     
 
 
-    const data = await getFlashCardsByApi(body.user_id, true)
+    const data = await getFlashCardsByApi(user_id, true)
+
     return new Response(JSON.stringify(data))
 
 };

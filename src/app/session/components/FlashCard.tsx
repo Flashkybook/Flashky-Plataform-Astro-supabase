@@ -1,6 +1,6 @@
 
 
-import type { SPB_FlashCard } from "../../models/schema";
+import type { SPB_FlashCard } from "@app/flashcards/models/schema";
 import { $session } from "../model/store";
 import { useStore } from '@nanostores/preact'
 import type { JSXInternal } from "node_modules/preact/src/jsx";
@@ -63,7 +63,7 @@ export default function FlashCard() {
             session.flashcards = $session.get().flashcards
 
             if (session.flashcards.list.length < 1) {
-                window.location.href = "/app/study/results";
+                window.location.href = "/app/session/results";
             }
 
         } else {
