@@ -1,0 +1,21 @@
+---
+
+const { user_id } = Astro.props;
+---
+
+<form
+    action="/api/v0/userbook/add"
+    method="post"
+    class="w-full text-2xl rounded-lg p-8 shadow-md shadow-black flex flex-col gap-1 bg-surface-100 dark:bg-surfacedark-100"
+>
+    <input type="hidden" name="user_id" value={user_id} hidden />
+    <input
+        type="text"
+        name="new_user_book"
+        value=""
+        required
+        placeholder={`+ Nuevo libro`}
+        class="focus:outline-none block w-full placeholder-gray-500 text-gray-100 transition duration-300
+    bg-transparent caret-white"
+    />
+</form>

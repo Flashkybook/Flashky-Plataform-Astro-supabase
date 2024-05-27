@@ -1,0 +1,32 @@
+---
+
+const navigator = [
+    {
+        title: "home",
+        icon: "home",
+        link: "/app",
+    },
+    {
+        title: "study",
+        icon: "school",
+        link: "/app/session",
+    },
+    {
+        title: "books",
+        icon: "book",
+        link: "/app/books",
+    },
+];
+---
+
+{
+    navigator.map((nav) => (
+        <a
+            href={nav.link}
+            class="w-1/3 md:w-[120px] h-16 px-4 justify-end items-center gap-1 relative py-2 hover:bg-surface-100 dark:hover:bg-surfacedark-100 active flex flex-col sm:flex-row"
+        >
+            <span class="material-symbols-outlined">{nav.icon}</span>
+            <p class="text-sm tracking-[.00714em]">{nav.title}</p>
+        </a>
+    ))
+}

@@ -12,22 +12,20 @@
     "jsxImportSource": "preact",
     "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "src/components/*"
-      ],
       "@env": [
-        "src/env.d.ts",
-        
+        "src/env.d.ts",        
       ],
-      "@layouts/*": [
-        "src/layouts/*"
+      "@layout": [
+        "src/shared/layout/index.astro"
+      ],     
+      "@shared/*": [
+        "src/shared/*"
       ],
-      "@lib/*": [
-        "src/lib/*"
+      
+      "@app/*": [
+        "src/app/*"
       ],
-      "@/*": [
-        "src/*"
-      ]
+     
     }
   }
 }

@@ -1,0 +1,89 @@
+<!-- ---
+import BtnIcon from "./ui/BtnIcon.astro";
+
+interface Props {
+    userBook_id: string;
+    name: string;
+    card_id: string;
+    expression_id: string;
+    set: boolean;
+}
+const { set, userBook_id, name, card_id, expression_id } = Astro.props;
+---
+
+<script>
+    class ExpressionCard extends HTMLElement {
+        constructor() {
+            super();
+            const bookId = this.dataset.bookId;
+            const cardId = this.dataset.cardId;
+            const expressionId = this.dataset.expressionId;
+            const name = this.dataset.name;
+            // const setable = this.dataset.setable;
+
+            // DELETE
+            this.querySelector("div.delete")?.addEventListener("click", (e) => {
+                e.preventDefault();
+                const accept = confirm(
+                    "¿Deseas borrar esta tarjeta?" +
+                        name +
+                        " card_id = " +
+                        cardId +
+                        " expression_id = " +
+                        expressionId,
+                );
+
+                if (accept) {
+                    fetch(
+                        `/api/v0/flashcard/delete?card_id=${cardId}&expression_id=${expressionId}`,
+                        {
+                            method: "DELETE",
+                        },
+                    ).then((res) => {
+                        if (res.status == 200) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
+            // DELETE
+        }
+    }
+
+    customElements.define("expression-card", ExpressionCard);
+</script>
+
+<expression-card
+    data-setable={set}
+    data-card-id={card_id}
+    data-expression-id={expression_id}
+    data-book-id={userBook_id}
+    data-name={name}
+    class="w-full flex justify-between p-2 gap-6"
+>
+    <div
+        class="w-14 h-14 flex items-center justify-center title-md font-bold dark:text-neutral-900"
+    >
+        <img src="/favicon.svg" alt="media 2" class="w-8 h-8" />
+    </div>
+    <div class="flex flex-col flex-grow">
+        <p class="tracking-[.03125em] underline">{name}</p>
+
+        {/* TODO Humanize date next review */}
+        <span class="text-sm tracking-[0.25px]">
+            next review: {}
+        </span>
+    </div>
+
+    <div class="flex items-center justify-center">
+        {
+            set && (
+                <div class="delete">
+                    <BtnIcon>
+                        <span class="material-symbols-outlined">delete</span>
+                    </BtnIcon>
+                </div>
+            )
+        }
+    </div>
+</expression-card> -->

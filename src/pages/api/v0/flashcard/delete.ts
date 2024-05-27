@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { supabase } from "@lib/supabase";
+import { supabase } from "@shared/supabase";
 
 
 export const DELETE: APIRoute = async ({ url}) => {
@@ -17,7 +17,7 @@ export const DELETE: APIRoute = async ({ url}) => {
     if (delete_error) {
         return new Response(JSON.stringify({
             message: "problema al eliminar", error: delete_error
-        }))
+        }), { status: 400 })
     }
     return new Response(JSON.stringify({
         message: "Libro Eliminado"

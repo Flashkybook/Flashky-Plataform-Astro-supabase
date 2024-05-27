@@ -1,41 +1,45 @@
 ---
-import Layout from "@layouts/index.astro";
+import Layout from "@layout";
+import Userbook from "@app/userbook/components/List.astro";
+import ListFlashcards from "@app/flashcards/components/FlashCardItem.astro";
+import InputHandle from '@app/InputHandle'
+import { getUserSsr } from "@app/user/auth/controllers";
+const userdata = await getUserSsr(Astro);
 
-import Userbook from "@components/ListUserBooks.astro";
 
-import { $user } from "@lib/db/user.store";
+import { getFlashCards } from "@app/flashcards/controllers";
+const flashcards = await getFlashCards({userId: userdata?.id});
 
-if ($user.get() === undefined && Astro.url.pathname !== "/") {
-  return Astro.redirect("/");
-}
-
+fetch("https://tts-api-96an.onrender.com");
 ---
 
-<Layout>
+<Layout userdata={userdata}>
+  
   <div class="container mx-auto mt-14">
-    <!-- <script>
-      import { $user } from "@lib/db/user.store";
-
-      if ($user.get() === undefined) {
-        fetch("/api/v0/auth/verify", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json()
-          )
-          .then((data) => {
-            $user.set(data.user)
-          });
-      }
-    </script> -->
-
-    <Userbook />
+    <div
+      class="flex flex-col sm:flex-row items-center justify-between gap-4 my-12"
+    >
+      <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">
+        Lista de libros
+      </h3>
+    </div>
+    <Userbook user_id={userdata?.id} />
     <a
       class="w-full rounded-lg p-8 shadow-md shadow-black flex-col gap-1 dark:bg-surfacedark-500
       mt-10 block text-center bg-slate-200 px-4 py-3 text-white"
-      href="/app/study">Estudiar</a
+      href="/app/session">Estudiar</a
     >
   </div>
+
+  <div
+    class="flex flex-col sm:flex-row items-center justify-between gap-4 my-12"
+  >
+    <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">
+      Lista de flashcards
+    </h3>
+  </div>
+
+  {flashcards?.map((flashcard) => 
+   <ListFlashcards flashcard={flashcard} />
+  )}
 </Layout>

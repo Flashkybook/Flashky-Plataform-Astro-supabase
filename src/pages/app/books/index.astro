@@ -1,16 +1,24 @@
 ---
+import Layout from "@layout";
 
-import ListUserBooks from "@components/ListUserBooks.astro";
-import Layout from "@/layouts/index.astro";
+import Userbook from "@app/userbook/components/List.astro";
+import { getUserSsr } from "@app/user/auth/controllers";
 
-import {$user} from '@lib/db/user.store'
-if ($user.get() === undefined && Astro.url.pathname !== "/") {
+const userdata = await getUserSsr(Astro);
+if (!userdata) {
     return Astro.redirect("/");
 }
-
 ---
-<Layout >
+
+<Layout userdata={userdata}>
     <div class="container mx-auto">
-        <ListUserBooks  />
+        <div
+            class="flex flex-col sm:flex-row items-center justify-between gap-4 my-12"
+        >
+            <h3 class="text-2xl font-semibold text-gray-700 dark:text-white">
+                Lista de libros
+            </h3>
+        </div>
+        <Userbook user_id={userdata?.id} />
     </div>
 </Layout>

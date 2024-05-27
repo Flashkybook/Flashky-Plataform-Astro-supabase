@@ -1,3 +1,14 @@
+# estructura de la api
+
+Arquitectura clean
+
+tech stack:
+- [ ] Supabase
+- [ ] nanoStore
+- [ ] prisma
+- [ ] IndexDB For localDB
+
+
 # [ ] Relación base de datos
 
 - [ ] expresión: frase, palabra, sonido, etc
