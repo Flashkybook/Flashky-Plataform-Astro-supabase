@@ -4,7 +4,7 @@ import type { SPB_FlashCard } from "@app/flashcards/models/schema";
 import { $session } from "../model/store";
 import { useStore } from '@nanostores/preact'
 import type { JSXInternal } from "node_modules/preact/src/jsx";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import text_formatter from "@shared/utils/text_formatter";
 
 // https://github.com/Flashkybook/old-app-frontend-next.js/blob/main/src/components/Games/InputGame.jsx
@@ -19,9 +19,11 @@ export default function FlashCard() {
         encodeURIComponent(current_card?.expression_name)
     const audio_data = new Audio(audioURL)
 
+    const inputRef = useRef<HTMLInputElement>(null)
+    const paragraphRef = useRef<HTMLParagraphElement>(null)
+
     const playSound = () => {
-        const input = document.querySelector("input[aria-label='answer']") as HTMLInputElement
-        input.focus()
+        inputRef.current?.focus()
 
         audio_data.currentTime = 0
         setLoadAudio(true)
@@ -32,15 +34,19 @@ export default function FlashCard() {
         }, 500);
     }
     useEffect(() => {
-        playSound()
 
         if (session.flashcards.list[session.current.index] == undefined) {
             $session.setKey("current", { ...session.current, index: 0 })
             session.current.index = 0
         }
+        if (current_card?.expression_name != undefined) {
+            playSound()
+        }
+
+
+
+
     }, [session])
-
-
 
     const nextCurrent = () => {
 
@@ -89,14 +95,29 @@ export default function FlashCard() {
     }
 
 
+
     const handleSubmit = (e: JSXInternal.TargetedSubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
         const answer = e.currentTarget.getElementsByTagName("input")[0].value
         // analyze answer correct or incorrect
         if (text_formatter(answer) == text_formatter(current_card.expression_name)) {
+            if (paragraphRef.current) { paragraphRef.current.innerHTML = "" }
             nextCurrent()
         } else {
-            "first time incorrect in this round"
+            if (paragraphRef.current !== null) {
+                paragraphRef.current.innerHTML = current_card.expression_name.split(" ").map(e => `<span class="text-gray-600">${e}</span>`).join(" ")
+
+                answer.split(" ").forEach((word, index) => {
+                    const currentWordExpression = paragraphRef.current?.children[index]
+                    if (currentWordExpression?.innerHTML == word) {
+                        currentWordExpression.classList.add("text-green-500")
+                    } else {
+                        currentWordExpression?.classList.add("text-red-500")
+                    }
+                })
+
+
+            }
             session.current.correct = false
             playSound()
         }
@@ -108,7 +129,7 @@ export default function FlashCard() {
 
         <div class={"w-full md:w-2/3 text-center flex flex-col justify-center shadow-md shadow-black bg-surface-100 dark:bg-surfacedark-100 p-[4%] "}>
             <div class={"relative"}>
-                
+
 
                 <button onClick={() => playSound()}>
                     {loadAudio ?
@@ -122,26 +143,31 @@ export default function FlashCard() {
                     }
                 </button>
             </div>
-            <div className="text-3xl">
+            <div className="text-xl sm:text-3xl">
 
                 <form onSubmit={e => handleSubmit(e)}>
-                    <input
-                        style={{ caretColor: "white" }}
-                        aria-label={"answer"}
-                        type="text"
-                        placeholder={"answer"}
-                        name={"answer"}
-                        autofocus={true}
-                        autocomplete={"off"}
-                        class={"text-ellipsis w-full text-center border-b border-blue-50 outline-none bg-transparent mt-4 pb-2 "}
-                    />
+                    <label class={"text-left relative"}>
+
+                        {/* <p  class={"absolute "}></p> */}
+
+                        <span ref={paragraphRef} ></span>
+                        <input
+                            ref={inputRef}
+                            onChange={() => console.log("hola mundo")}
+                            style={{ caretColor: "white" }}
+                            aria-label={"answer"}
+                            type="text"
+                            placeholder={""}
+                            name={"answer"}
+                            autofocus={true}
+                            autocomplete={"off"}
+                            class={"p-2 px-4  text-ellipsis w-full  border-b border-blue-50 outline-none bg-transparent mt-4  "}
+                        />
+                    </label>
+
                 </form>
 
-                {session.current.correct == false &&
-                    <span class="text-red-500">
-                        {current_card.expression_name}
-                    </span>
-                }
+
             </div>
 
         </div>

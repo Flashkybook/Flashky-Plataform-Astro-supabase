@@ -44,13 +44,11 @@ export const getUserFromAuthCode = async (context: APIContext) => {
 export const getUserSsr = async (context: APIContext) => {
   
     const { data, error } = await supabase.auth.refreshSession();
-    if (error && !data) {
-        console.log(error)
-        context.redirect("/");
-        return undefined
-    }
+  
     if (error) {
         console.log(error)
+        context.redirect("/");
+        
         return undefined
     }
 

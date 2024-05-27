@@ -6,7 +6,7 @@ import { useStore } from '@nanostores/preact'
 export default function ListReview() {
 
     const session = useStore($session)
-    session.flashcards.updated = undefined
+    // session.flashcards.updated = undefined
 
     useEffect(() => {
 
@@ -44,11 +44,11 @@ export default function ListReview() {
                                 <img src="/favicon.svg" alt="media 2" class="w-8 h-8" />
                             </div>
                             <div class="flex flex-col flex-grow">
-                                <p class="tracking-[.03125em] underline">{v.value.expression_name}</p>
+                                <p class="tracking-[.03125em] underline">{v.expression_name}</p>
 
                                 {/* TODO Humanize date next review */}
                                 <span class="text-sm tracking-[0.25px]">
-                                    next review: {new Date(v.value.next_review).toLocaleDateString()}
+                                    next review: {new Date(v.next_review).toLocaleDateString()}
                                 </span>
 
                             </div>
@@ -58,18 +58,18 @@ export default function ListReview() {
                                 <div className='w-full md:w-full bg-gray-900 rounded-full border-2 border-black '>
                                     <div
                                         className='bg-slate-600 leading-none rounded-full'
-                                        style={{ width: `${v.value.efactor * 100 / 5}%` }}
-                                    > {v.value.efactor * 100 / 5}%
+                                        style={{ width: `${v.efactor * 100 / 5}%` }}
+                                    > {v.efactor * 100 / 5}%
                                     </div>
                                 </div>
                             </span>
 
                             <div class={"flex flex-col"}>
 
-                                {v.value.fails > 0 ?
-                                    <span class="text-[11px] leading-4 tracking-[.045em] font-medium">fails: {v.value.fails} </span> :
+                                {v.fails > 0 ?
+                                    <span class="text-[11px] leading-4 tracking-[.045em] font-medium">fails: {v.fails} </span> :
                                     <span class="text-[11px] leading-4 tracking-[.045em] font-medium">racha:
-                                        {v.value.repetition} días</span>
+                                        {v.repetition} días</span>
                                 }
 
                             </div>

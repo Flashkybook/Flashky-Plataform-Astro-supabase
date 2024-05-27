@@ -1,5 +1,4 @@
 import type { APIRoute } from "astro";
-import { supabase } from "@shared/supabase";
 import { getFlashCardsByApi } from "@app/session/service";
 // http://localhost:4321/api/v0/study/new_round
 export const POST: APIRoute = async ({ request }) => {

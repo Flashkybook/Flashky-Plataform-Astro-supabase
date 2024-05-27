@@ -1,4 +1,4 @@
-import { supabase } from "@/share/supabase";
+import { supabase } from "@shared/supabase";
 import type { APIRoute } from "astro";
 import type { Provider } from "@supabase/supabase-js";
 

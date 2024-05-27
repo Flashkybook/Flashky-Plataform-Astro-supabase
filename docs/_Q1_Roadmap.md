@@ -1,8 +1,10 @@
 ## Improve the UX
 
-- [ ] UserStorage need in frontend
+- [x] UserStorage need in frontend
+- [x] on fail add differences between words red and green for improve the focus
+
 - [ ] Add text to speech chatgpt api
-- [ ] on fail add differences between words red and green for improve the focus
+  - [ ] Change server response
 
 
 # MVP app
@@ -46,7 +48,7 @@
     - [ ] Auth
     - [ ] LocalDatabase
     - [ ] Sync database
-    - [ ] Refactor
+    - [x] Refactor
 
 - [ ] integrate chatgpt
   - [ ] determinate user level
