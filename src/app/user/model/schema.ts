@@ -2,7 +2,7 @@
 export interface SPB_UserData {
   id: string
   user_name: string
-  role: string
+  role: string | undefined
   is_anonymous: boolean | undefined
 }
 

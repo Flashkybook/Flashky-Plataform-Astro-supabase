@@ -20,9 +20,3 @@ interface ImportMeta {
 }
 
 
-
-
-export interface SPB_UserBook {
-  id: number
-  name: string
-}

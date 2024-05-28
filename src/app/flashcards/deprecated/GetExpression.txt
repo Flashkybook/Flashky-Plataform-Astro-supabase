@@ -1,0 +1,19 @@
+<!-- ---
+import { supabase } from "@lib/supabase";
+
+const { expression_id } = Astro.params;
+
+//  get all card_expresion
+console.log(Astro.params);
+const { data: expression_data, error } = await supabase
+    .from("expression")
+    .select("*")
+    .eq("id", expression_id);
+
+if (error) {
+    return "expression not found";
+}
+
+---
+
+<h3>{expression_data[0].name}</h3> -->

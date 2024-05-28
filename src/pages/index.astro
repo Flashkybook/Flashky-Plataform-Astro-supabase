@@ -1,13 +1,22 @@
 ---
 import Layout from "@layout";
 import { getUserFromAuthCode } from "@app/user/auth/controllers";
+
+
+import type { SPB_UserData } from "@app/user/model/schema";
+
+let user: SPB_UserData | undefined  = undefined
 if (Astro.url.searchParams.get("code")) {
-    const user = await getUserFromAuthCode(Astro);
+    const code = Astro.url.searchParams.get("code");
+    if(code) {
+        user = await getUserFromAuthCode(Astro);
+    }
 }
 ---
 
-<Layout title="panel de control">
+<Layout userdata={user}>
     <div class="relative">
+
         <!-- background -->
         <div
             aria-hidden="true"

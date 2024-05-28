@@ -1,6 +1,8 @@
 import { supabase } from '@shared/supabase';
 import type { APIContext, AstroCookies } from 'astro'
 import type { Session } from '@supabase/supabase-js'
+import { adapterResSupabaseAuth_to_store } from "../model/store";
+import type { User } from '@supabase/supabase-js'
 
 
 /**
@@ -29,11 +31,28 @@ export const getUserFromAuthCode = async (context: APIContext) => {
     }
     const { data, error } = await supabase.auth.exchangeCodeForSession(authCode);
     if (error) {
-        console.log("CODIGO EXPIRADO")
-        return context.redirect("/");
+        context.redirect("/");
+        return undefined
     }
     saveTokenSession(context.cookies, data.session)
+    const user = adapterResSupabaseAuth_to_store(data.user as User)
+    return user
 
-    return data.user
 }
 
+
+export const getUserSsr = async (context: APIContext) => {
+  
+    const { data, error } = await supabase.auth.refreshSession();
+  
+    if (error) {
+        console.log(error)
+        context.redirect("/");
+        
+        return undefined
+    }
+
+    const user = adapterResSupabaseAuth_to_store(data.user as User)
+    return user
+
+}
