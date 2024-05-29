@@ -2,21 +2,19 @@
 import Layout from "@layout";
 import { getUserFromAuthCode } from "@app/user/auth/controllers";
 
+// import type { SPB_UserData } from "@app/user/model/schema";
 
-import type { SPB_UserData } from "@app/user/model/schema";
-
-let user: SPB_UserData | undefined  = undefined
-if (Astro.url.searchParams.get("code")) {
-    const code = Astro.url.searchParams.get("code");
-    if(code) {
-        user = await getUserFromAuthCode(Astro);
-    }
-}
+// let user: SPB_UserData | undefined  = undefined
+// if (Astro.url.searchParams.get("code")) {
+//     const code = Astro.url.searchParams.get("code");
+//     if(code) {
+//         user = await getUserFromAuthCode(Astro);
+//     }
+// }
 ---
 
-<Layout userdata={user}>
+<Layout>
     <div class="relative">
-
         <!-- background -->
         <div
             aria-hidden="true"
@@ -60,7 +58,7 @@ if (Astro.url.searchParams.get("code")) {
 
                         <form
                             aria-label="login by SSRR "
-                            action="/api/v1/auth/login"
+                            action="/api/v1/auth"
                             method="post"
                             class="mt-6 flex flex-wrap sm:grid gap-6 grid-cols-2"
                         >
