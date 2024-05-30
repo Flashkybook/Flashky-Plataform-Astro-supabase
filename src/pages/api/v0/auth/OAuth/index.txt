@@ -1,6 +1,0 @@
-import type { APIRoute } from "astro";
-import { getUserSsr } from "@app/user/auth/controllers";
-
-export const GET: APIRoute = async (params) => {
-    return getUserSsr(params);
-};  

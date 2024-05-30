@@ -14,7 +14,6 @@ fetch("https://tts-api-96an.onrender.com");
 ---
 
 <Layout userdata={userdata}>
-  
   <div class="container mx-auto mt-14">
     <div
       class="flex flex-col sm:flex-row items-center justify-between gap-4 my-12"
@@ -39,7 +38,5 @@ fetch("https://tts-api-96an.onrender.com");
     </h3>
   </div>
 
-  {flashcards?.map((flashcard) => 
-   <ListFlashcards flashcard={flashcard} />
-  )}
+   <ListFlashcards  />
 </Layout>
